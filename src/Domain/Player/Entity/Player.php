@@ -88,6 +88,7 @@ class Player
     private $gold;
 
     /**
+     * @Groups({"post", "get"})
      * @var string
      */
     private $picture;
