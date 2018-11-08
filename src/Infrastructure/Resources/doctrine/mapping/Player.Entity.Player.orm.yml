@@ -27,20 +27,33 @@ App\Domain\Player\Entity\Player:
             type: integer
         picture:
             type: text
+        inUse:
+            type: boolean
     manyToOne:
-        game:
-            targetEntity: App\Domain\Game\Entity\Game
-            cascade:
-            - 'persist'
+        race:
+            targetEntity: App\Domain\Race\Entity\Race
+            cascade: {  }
             fetch: LAZY
             mappedBy: null
-            inversedBy: players
+            inversedBy: null
             joinColumns:
-                game_id:
+                race_id:
                     referencedColumnName: id
-                    nullable: false
             orphanRemoval: false
+
+        game:
+          targetEntity: App\Domain\Game\Entity\Game
+          cascade:
+          - 'persist'
+          fetch: LAZY
+          mappedBy: null
+          inversedBy: players
+          joinColumns:
+            game_id:
+              referencedColumnName: id
+              nullable: false
+          orphanRemoval: false
     oneToOne:
-        gameMaster:
-            targetEntity: App\Domain\Game\Entity\Game
-            mappedBy: masterGame
+      gameMaster:
+        targetEntity: App\Domain\Game\Entity\Game
+        mappedBy: masterGame

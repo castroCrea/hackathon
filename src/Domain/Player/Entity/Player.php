@@ -4,6 +4,7 @@ namespace App\Domain\Player\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Domain\Game\Entity\Game;
+use App\Domain\Race\Entity\Race;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -89,6 +90,7 @@ class Player
     private $gold;
 
     /**
+     * @Groups({"post", "get"})
      * @var string
      */
     private $picture;
@@ -103,6 +105,16 @@ class Player
      * @var Game
      */
     private $gameMaster;
+
+    /**
+     * @var bool
+     */
+    private $inUse;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Domain\Race\Entity\Race", inversedBy="players")
+     */
+    private $race;
 
     /**
      * @return int
@@ -280,21 +292,6 @@ class Player
         $this->picture = $picture;
     }
 
-    /**
-     * @return Game
-     */
-    public function getGame(): Game
-    {
-        return $this->game;
-    }
-
-    /**
-     * @param Game $game
-     */
-    public function setGame(Game $game): void
-    {
-        $this->game = $game;
-    }
 
     /**
      * @return Game
@@ -310,6 +307,54 @@ class Player
     public function setGameMaster(Game $gameMaster): void
     {
         $this->gameMaster = $gameMaster;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isInUse(): bool
+    {
+        return $this->inUse;
+    }
+
+    /**
+     * @param bool $inUse
+     */
+    public function setInUse(bool $inUse): void
+    {
+        $this->inUse = $inUse;
+    }
+
+    /**
+     * @return Race
+     */
+    public function getRace()
+    {
+        return $this->race;
+    }
+
+    /**
+     * @param Race $race
+     */
+    public function setRace(Race $race): void
+    {
+        $this->race = $race;
+    }
+
+    /**
+     * @return Game
+     */
+    public function getGame(): Game
+    {
+        return $this->game;
+    }
+
+    /**
+     * @param Game $game
+     */
+    public function setGame(Game $game): void
+    {
+        $this->game = $game;
     }
 
 }
