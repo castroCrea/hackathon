@@ -1,24 +1,27 @@
 App\Domain\Player\Entity\Player:
     type: entity
-    table: User
+    table: Player
     id:
         id:
             type: integer
             generator: { strategy: AUTO }
-        fields:
-            level:
-                type: integer
-            experience:
-                type: integer
-            life:
-                type: integer
-            maneuverability:
-                type: integer
-            attackPower:
-                type: integer
-            defense:
-                type: integer
-            parade:
-                type: integer
-            gold:
-                type: integer
+    fields:
+        name:
+            type: string
+            length: 255
+        level:
+            type: integer
+        experience:
+            type: integer
+        life:
+            type: integer
+        maneuverability:
+            type: integer
+        attackPower:
+            type: integer
+        defense:
+            type: integer
+        parade:
+            type: integer
+        gold:
+            type: integer
