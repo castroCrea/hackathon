@@ -88,6 +88,11 @@ class Player
     private $gold;
 
     /**
+     * @var string
+     */
+    private $picture;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -246,5 +251,23 @@ class Player
     {
         $this->gold = $gold;
     }
+
+    /**
+     * @return string
+     */
+    public function getPicture(): string
+    {
+        return $this->picture;
+    }
+
+    /**
+     * @param string $picture
+     */
+    public function setPicture(string $picture): void
+    {
+        $this->picture = $picture;
+    }
+
+
 
 }

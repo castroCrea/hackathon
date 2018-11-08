@@ -25,3 +25,5 @@ App\Domain\Player\Entity\Player:
             type: integer
         gold:
             type: integer
+        picture:
+            type: text
