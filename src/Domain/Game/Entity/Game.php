@@ -59,11 +59,13 @@ class Game
     protected $maxPlayer;
 
     /**
+     * @Groups({"get"})
      * @var PersistentCollection
      */
     protected $players;
 
     /**
+     * @Groups({"get"})
      * @var Player
      */
     protected $masterGame;
