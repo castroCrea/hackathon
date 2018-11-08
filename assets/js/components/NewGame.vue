@@ -1,73 +1,48 @@
 <template>
   <div>
-    <h2 class="text-center">Inscription</h2>
+    <h2 class="text-center">Créer une partie</h2>
     <form>
-      <div class="form-group">
-        <label for="sex">Race</label>
-        <select class="form-control" id="sex">
-          <option value="F">Femme</option>
-          <option value="M">Homme</option>
-        </select>
-      </div>
-
 
       <div class="form-group">
-        <label for="email">Email</label>
-        <input type="email" class="form-control" id="email" aria-describedby="emailHelp" placeholder="email">
+        <label for="title">Nom</label>
+        <input type="text" class="form-control" id="title" v-model="user.title" name="title" placeholder="Kayviiiine">
       </div>
 
       <div class="form-group">
-        <label for="pwd1">Mot de passe</label>
-        <input type="password" class="form-control" id="pwd1" placeholder="mot de passe">
-      </div>
-      <div class="form-group">
-        <label for="pwd2">Retapez le mot de passe</label>
-        <input type="password" class="form-control" id="pwd2" placeholder="mot de passe">
+        <label for="description">Description</label>
+        <textarea class="form-control" id="description" v-model="user.description" name="description"></textarea>
       </div>
 
       <div class="form-group">
-        <label for="job">Métier</label>
-        <input type="text" class="form-control" id="job" name="job" placeholder="Dev front end">
+        <label for="maxPlayer">Nombre maximum de joueurs</label>
+        <input type="number" class="form-control" id="maxPlayer" name="maxPlayer" v-model.number="user.maxPlayer" placeholder="100">
       </div>
 
-      <div class="form-group">
-        <label for="userRace">Race</label>
-        <select class="form-control" id="userRace">
-          <option value="">1</option>
-          <option value="">2</option>
-        </select>
-      </div>
 
-      <div class="form-group">
-        <label for="profilePhoto">Photo de profil</label>
-        <input type="file" class="form-control-file" id="profilePhoto" aria-describedby="fileHelp">
-      </div>
-
-      <button type="submit" v-on:click="signIn" class="btn btn-primary">S'inscrire</button>
+      <button type="submit" v-on:click.prevent="createGame()" class="btn btn-primary">Valider</button>
     </form>
   </div>
 </template>
 
 <script>
+
     export default {
         name: "NewGame",
         data(){
             return {
                 user: {
-                    email: '',
-                    password: '',
-                    retry_password: '',
-                    job: '',
-                    race: '',
-                    photo: '',
-                    sex: ''
+                    title: '',
+                    description: '',
+                    maxPlayer: ''
                 }
             }
         },
         methods: {
-            signIn(e) {
-                console.log('toto');
-                e.preventDefault();
+            createGame(e) {
+                this.axios.post('http://localhost:8000/api/games', this.user)
+                .then((response) => {
+                  this.$router.push('/')
+                })
             }
         }
     }
