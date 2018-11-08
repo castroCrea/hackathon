@@ -1,0 +1,7 @@
+App\Domain\User\Entity\User:
+    type: entity
+    table: User
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
