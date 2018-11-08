@@ -129,5 +129,52 @@ class Game
         $this->maxPlayer = $maxPlayer;
     }
 
+    /**
+     * @return \DateTime
+     */
+    public function getCreationDate(): \DateTime
+    {
+        return $this->creationDate;
+    }
+
+    /**
+     * @param \DateTime $creationDate
+     */
+    public function setCreationDate(\DateTime $creationDate): void
+    {
+        $this->creationDate = $creationDate;
+    }
+
+    /**
+     * @return PersistentCollection
+     */
+    public function getPlayers(): PersistentCollection
+    {
+        return $this->players;
+    }
+
+    /**
+     * @param PersistentCollection $players
+     */
+    public function setPlayers(PersistentCollection $players): void
+    {
+        $this->players = $players;
+    }
+
+    /**
+     * @return Player
+     */
+    public function getMasterGame(): Player
+    {
+        return $this->masterGame;
+    }
+
+    /**
+     * @param Player $masterGame
+     */
+    public function setMasterGame(Player $masterGame): void
+    {
+        $this->masterGame = $masterGame;
+    }
 
 }
