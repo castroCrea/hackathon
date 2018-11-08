@@ -14,6 +14,10 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
+use ApiPlatform\Core\Annotation\ApiFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
 
 /**
  * @ORM\Entity
@@ -26,7 +30,8 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  *     "get"={
  *              "method"="GET",
- *              "normalization_context"={"groups"={"get"}}
+ *              "normalization_context"={"groups"={"get"}},
+ *              "filters"={"game.creationDate", "game.title"}
  *      }
  *     },
  *     itemOperations={"get"={"method"="GET"}}

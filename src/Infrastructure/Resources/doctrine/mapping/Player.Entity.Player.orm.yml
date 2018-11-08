@@ -53,6 +53,16 @@ App\Domain\Player\Entity\Player:
               referencedColumnName: id
               nullable: false
           orphanRemoval: false
+        gender:
+          targetEntity: App\Domain\Gender\Entity\Gender
+          cascade: {  }
+          fetch: LAZY
+          mappedBy: null
+          inversedBy: null
+          joinColumns:
+            gender_id:
+              referencedColumnName: id
+          orphanRemoval: false
     oneToOne:
       gameMaster:
         targetEntity: App\Domain\Game\Entity\Game
@@ -67,16 +77,7 @@ App\Domain\Player\Entity\Player:
                 job_id:
                     referencedColumnName: id
             orphanRemoval: false
-        gender:
-            targetEntity: App\Domain\Gender\Entity\Gender
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                gender_id:
-                    referencedColumnName: id
-            orphanRemoval: false
+
     manyToMany:
         protections:
             targetEntity: App\Domain\Protection\Entity\Protection
@@ -129,4 +130,3 @@ App\Domain\Player\Entity\Player:
                     -
                         name: objectItem_id
                         referencedColumnName: id
-                        
