@@ -3,6 +3,7 @@
 namespace App\Domain\Player\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Domain\Game\Entity\Game;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -91,6 +92,17 @@ class Player
      * @var string
      */
     private $picture;
+    /**
+     * @Groups({"post", "get"})
+     * @var Game
+     */
+    private $game;
+
+    /**
+     * @Groups({"post", "get"})
+     * @var Game
+     */
+    private $gameMaster;
 
     /**
      * @return int
@@ -268,6 +280,36 @@ class Player
         $this->picture = $picture;
     }
 
+    /**
+     * @return Game
+     */
+    public function getGame(): Game
+    {
+        return $this->game;
+    }
 
+    /**
+     * @param Game $game
+     */
+    public function setGame(Game $game): void
+    {
+        $this->game = $game;
+    }
+
+    /**
+     * @return Game
+     */
+    public function getGameMaster(): Game
+    {
+        return $this->gameMaster;
+    }
+
+    /**
+     * @param Game $gameMaster
+     */
+    public function setGameMaster(Game $gameMaster): void
+    {
+        $this->gameMaster = $gameMaster;
+    }
 
 }

@@ -1,0 +1,31 @@
+App\Domain\Game\Entity\Game:
+    type: entity
+    table: game
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        title:
+            type: string
+            length: 255
+        description:
+            type: text
+        maxPlayer:
+            type: integer
+        creationDate:
+            type: datetime
+    oneToMany:
+        players:
+            targetEntity: App\Domain\Player\Entity\Player
+            cascade:
+            - 'persist'
+            fetch: LAZY
+            mappedBy: game
+    oneToOne:
+        masterGame:
+            targetEntity: App\Domain\Player\Entity\Player
+            inversedBy: gameMaster
+            joinColumn:
+                name: master_game_id
+                referencedColumnName: id

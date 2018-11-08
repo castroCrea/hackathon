@@ -2,7 +2,6 @@
 
 namespace App\Domain\User\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use FOS\UserBundle\Model\User as BaseUser;
@@ -11,15 +10,6 @@ use App\Api\User\Validator\Constraints\UserProperties;
 
 /**
  * @ORM\Entity
- *
- * @ApiResource(
- *     collectionOperations={"post"={
- *              "method"="POST",
- *              "normalization_context"={"groups"={"post"}},
- *              "denormalization_context"={"groups"={"post"}}
- *      }},
- *     itemOperations={"get"={"method"="GET"}}
- * )
  */
 class User extends BaseUser
 {
