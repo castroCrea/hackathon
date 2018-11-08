@@ -4,6 +4,7 @@ namespace App\Domain\Player\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Domain\Game\Entity\Game;
+use App\Domain\Race\Entity\Race;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -19,11 +20,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  *     "get"={
  *              "method"="GET",
- *              "normalization_context"={"groups"={"get"}}
+ *              "normalization_context"={"groups"={"get_player"}}
  *      }
  *     },
  *     itemOperations={"get"={"method"="GET"}}
- * )  itemOperations={"get"}
+ * )
  * )
  */
 class Player
@@ -35,74 +36,114 @@ class Player
     private $id;
 
     /**
-     * @Groups({"post", "get"})
+     * @Groups({"post", "get_player", "get"})
      * @var string
      */
     private $name;
 
     /**
-     * @Groups({"get"})
+     * @Groups({"get_player"})
      * @var int
      */
     private $level;
 
     /**
-     * @Groups({"get"})
+     * @Groups({"get_player"})
      * @var int
      */
     private $experience;
 
     /**
-     * @Groups({"get"})
+     * @Groups({"get_player"})
      * @var int
      */
     private $life;
 
     /**
-     * @Groups({"get"})
+     * @Groups({"get_player"})
      * @var int
      */
     private $maneuverability;
 
     /**
-     * @Groups({"get"})
+     * @Groups({"get_player"})
      * @var int
      */
     private $attackPower;
 
     /**
-     * @Groups({"get"})
+     * @Groups({"get_player"})
      * @var int
      */
     private $defense;
 
     /**
-     * @Groups({"get"})
+     * @Groups({"get_player"})
      * @var int
      */
     private $parade;
 
     /**
-     * @Groups({"get"})
+     * @Groups({"get_player"})
      * @var int
      */
     private $gold;
 
     /**
+     * @Groups({"post", "get"})
      * @var string
      */
     private $picture;
     /**
-     * @Groups({"post", "get"})
+     * @Groups({"post", "get_player"})
      * @var Game
      */
     private $game;
 
     /**
-     * @Groups({"post", "get"})
+     * @Groups({"post", "get_player"})
      * @var Game
      */
     private $gameMaster;
+
+    /**
+     * @Groups({"get_player"})
+     * @var bool
+     */
+    private $inUse = true;
+
+    /**
+     * @Groups({"post", "get_player"})
+     * @ORM\ManyToOne(targetEntity="App\Domain\Race\Entity\Race", inversedBy="players")
+     */
+    private $race;
+
+    /**
+     * @Groups({"post", "get_player"})
+     * @ORM\ManyToOne(targetEntity="App\Domain\Job\Entity\Job", inversedBy="players")
+     */
+    private $job;
+
+    /**
+     * @Groups({"post", "get_player"})
+     * @ORM\ManyToOne(targetEntity="App\Domain\Gender\Entity\Gender", inversedBy="players")
+     */
+    private $gender;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Domain\Protection\Entity\Protection", cascade={"persist"})
+     */
+    private $protections;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Domain\Weapon\Entity\Weapon", cascade={"persist"})
+     */
+    private $weapons;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Domain\ObjectItem\Entity\ObjectItem", cascade={"persist"})
+     */
+    private $objectItems;
 
     /**
      * @return int
@@ -139,7 +180,7 @@ class Player
     /**
      * @return int
      */
-    public function getLevel(): int
+    public function getLevel(): ?int
     {
         return $this->level;
     }
@@ -155,7 +196,7 @@ class Player
     /**
      * @return int
      */
-    public function getExperience(): int
+    public function getExperience(): ?int
     {
         return $this->experience;
     }
@@ -171,7 +212,7 @@ class Player
     /**
      * @return int
      */
-    public function getLife(): int
+    public function getLife(): ?int
     {
         return $this->life;
     }
@@ -187,7 +228,7 @@ class Player
     /**
      * @return int
      */
-    public function getManeuverability(): int
+    public function getManeuverability(): ?int
     {
         return $this->maneuverability;
     }
@@ -203,7 +244,7 @@ class Player
     /**
      * @return int
      */
-    public function getAttackPower(): int
+    public function getAttackPower(): ?int
     {
         return $this->attackPower;
     }
@@ -219,7 +260,7 @@ class Player
     /**
      * @return int
      */
-    public function getDefense(): int
+    public function getDefense(): ?int
     {
         return $this->defense;
     }
@@ -235,7 +276,7 @@ class Player
     /**
      * @return int
      */
-    public function getParade(): int
+    public function getParade(): ?int
     {
         return $this->parade;
     }
@@ -251,7 +292,7 @@ class Player
     /**
      * @return int
      */
-    public function getGold(): int
+    public function getGold(): ?int
     {
         return $this->gold;
     }
@@ -267,7 +308,7 @@ class Player
     /**
      * @return string
      */
-    public function getPicture(): string
+    public function getPicture(): ?string
     {
         return $this->picture;
     }
@@ -280,26 +321,11 @@ class Player
         $this->picture = $picture;
     }
 
-    /**
-     * @return Game
-     */
-    public function getGame(): Game
-    {
-        return $this->game;
-    }
-
-    /**
-     * @param Game $game
-     */
-    public function setGame(Game $game): void
-    {
-        $this->game = $game;
-    }
 
     /**
      * @return Game
      */
-    public function getGameMaster(): Game
+    public function getGameMaster(): ?Game
     {
         return $this->gameMaster;
     }
@@ -310,6 +336,134 @@ class Player
     public function setGameMaster(Game $gameMaster): void
     {
         $this->gameMaster = $gameMaster;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isInUse(): bool
+    {
+        return $this->inUse;
+    }
+
+    /**
+     * @param bool $inUse
+     */
+    public function setInUse(bool $inUse): void
+    {
+        $this->inUse = $inUse;
+    }
+
+    /**
+     * @return Race
+     */
+    public function getRace()
+    {
+        return $this->race;
+    }
+
+    /**
+     * @param Race $race
+     */
+    public function setRace(Race $race): void
+    {
+        $this->race = $race;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getProtections()
+    {
+        return $this->protections;
+    }
+
+    /**
+     * @param mixed $protections
+     */
+    public function setProtections($protections): void
+    {
+        $this->protections = $protections;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWeapons()
+    {
+        return $this->weapons;
+    }
+
+    /**
+     * @param mixed $weapons
+     */
+    public function setWeapons($weapons): void
+    {
+        $this->weapons = $weapons;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getObjectItems()
+    {
+        return $this->objectItems;
+    }
+
+    /**
+     * @param mixed $objectItems
+     */
+    public function setObjectItems($objectItems): void
+    {
+        $this->objectItems = $objectItems;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getJob()
+    {
+        return $this->job;
+    }
+
+    /**
+     * @param mixed $job
+     */
+    public function setJob($job): void
+    {
+        $this->job = $job;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    /**
+     * @param mixed $gender
+     */
+    public function setGender($gender): void
+    {
+        $this->gender = $gender;
+    }
+
+    /**
+     * @return Game
+     */
+    public function getGame(): ?Game
+    {
+        return $this->game;
+    }
+
+    /**
+     * @param Game $game
+     */
+    public function setGame(Game $game): void
+    {
+        $this->game = $game;
     }
 
 }

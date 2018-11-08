@@ -11,36 +11,131 @@ App\Domain\Player\Entity\Player:
             length: 255
         level:
             type: integer
+            nullable: true
         experience:
             type: integer
+            nullable: true
         life:
             type: integer
+            nullable: true
         maneuverability:
             type: integer
+            nullable: true
         attackPower:
             type: integer
+            nullable: true
         defense:
             type: integer
+            nullable: true
         parade:
             type: integer
+            nullable: true
         gold:
             type: integer
+            nullable: true
         picture:
             type: text
+            nullable: true
+        inUse:
+            type: boolean
     manyToOne:
+        race:
+            targetEntity: App\Domain\Race\Entity\Race
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                race_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+
         game:
-            targetEntity: App\Domain\Game\Entity\Game
+          targetEntity: App\Domain\Game\Entity\Game
+          cascade:
+          - 'persist'
+          fetch: LAZY
+          mappedBy: null
+          inversedBy: players
+          joinColumns:
+            game_id:
+              referencedColumnName: id
+              nullable: false
+          orphanRemoval: false
+        gender:
+          targetEntity: App\Domain\Gender\Entity\Gender
+          cascade: {  }
+          fetch: LAZY
+          mappedBy: null
+          inversedBy: null
+          joinColumns:
+            gender_id:
+              referencedColumnName: id
+          orphanRemoval: false
+    oneToOne:
+      gameMaster:
+        targetEntity: App\Domain\Game\Entity\Game
+        mappedBy: masterGame
+        job:
+            targetEntity: App\Domain\Job\Entity\Job
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                job_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+
+    manyToMany:
+        protections:
+            targetEntity: App\Domain\Protection\Entity\Protection
             cascade:
-            - 'persist'
+              - 'persist'
             fetch: LAZY
             mappedBy: null
             inversedBy: players
-            joinColumns:
-                game_id:
-                    referencedColumnName: id
-                    nullable: false
-            orphanRemoval: false
-    oneToOne:
-        gameMaster:
-            targetEntity: App\Domain\Game\Entity\Game
-            mappedBy: masterGame
+            joinTable:
+                name: protections_players
+                joinColumns:
+                    -
+                        name: player_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: protection_id
+                        referencedColumnName: id
+        weapons:
+            targetEntity: App\Domain\Weapon\Entity\Weapon
+            cascade:
+              - 'persist'
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: players
+            joinTable:
+                name: weapons_players
+                joinColumns:
+                    -
+                        name: player_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: weapon_id
+                        referencedColumnName: id
+        objectItems:
+            targetEntity: App\Domain\ObjectItem\Entity\ObjectItem
+            cascade:
+              - 'persist'
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: players
+            joinTable:
+                name: objectItems_players
+                joinColumns:
+                    -
+                        name: player_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: objectItem_id
+                        referencedColumnName: id

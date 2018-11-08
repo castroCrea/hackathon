@@ -9,6 +9,7 @@ App\Domain\Game\Entity\Game:
         title:
             type: string
             length: 255
+            unique: true
         description:
             type: text
         maxPlayer:
