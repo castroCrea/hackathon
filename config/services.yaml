@@ -45,7 +45,7 @@ services:
 
     game.title:
         parent: 'api_platform.doctrine.orm.search_filter'
-        arguments: [ { title: ~ } ]
+        arguments: [ { title: "partial" } ]
         tags:  [ 'api_platform.filter' ]
         # The following are mandatory only if a _defaults section is defined
         # You may want to isolate filters in a dedicated file to avoid adding them
