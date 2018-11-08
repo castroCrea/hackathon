@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c28b1c82eed90b2e461c40ffc252ccde",
+    "content-hash": "646a13eaca28bea0262f9cc8d0a17f50",
     "packages": [
         {
             "name": "api-platform/api-pack",
@@ -1574,20 +1574,19 @@
         },
         {
             "name": "lexik/jwt-authentication-bundle",
-            "version": "v2.6.0",
+            "version": "v2.5.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/lexik/LexikJWTAuthenticationBundle.git",
-                "reference": "dc10bb43a8c9fef24edbc9d6fab8cf40d575a903"
+                "reference": "f1c8c9a33c55eeb6105de5a2aedb9ba44a6efbed"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/lexik/LexikJWTAuthenticationBundle/zipball/dc10bb43a8c9fef24edbc9d6fab8cf40d575a903",
-                "reference": "dc10bb43a8c9fef24edbc9d6fab8cf40d575a903",
+                "url": "https://api.github.com/repos/lexik/LexikJWTAuthenticationBundle/zipball/f1c8c9a33c55eeb6105de5a2aedb9ba44a6efbed",
+                "reference": "f1c8c9a33c55eeb6105de5a2aedb9ba44a6efbed",
                 "shasum": ""
             },
             "require": {
-                "ext-openssl": "*",
                 "lcobucci/jwt": "^3.2",
                 "namshi/jose": "^7.2",
                 "php": "^5.5|^7.0",
@@ -1667,7 +1666,7 @@
                 "rest",
                 "symfony"
             ],
-            "time": "2018-11-01T14:48:31+00:00"
+            "time": "2018-08-02T19:32:29+00:00"
         },
         {
             "name": "namshi/jose",

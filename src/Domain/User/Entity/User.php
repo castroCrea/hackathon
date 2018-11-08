@@ -2,14 +2,14 @@
 
 namespace App\Domain\User\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use FOS\UserBundle\Model\User as BaseUser;
 use FOS\UserBundle\Model\UserInterface;
+use App\Api\User\Validator\Constraints\UserProperties;
 
 /**
  * @ORM\Entity
- * @ApiResource()
  */
 class User extends BaseUser
 {
@@ -19,7 +19,9 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @Groups({"post"})
      * @var string
+     * @UserProperties
      */
     protected $email;
 
@@ -29,6 +31,7 @@ class User extends BaseUser
     protected $fullname;
 
     /**
+     * @Groups({"post"})
      * @var string
      */
     protected $plainPassword;
