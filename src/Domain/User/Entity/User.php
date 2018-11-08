@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Annotation\Groups;
 use FOS\UserBundle\Model\User as BaseUser;
 use FOS\UserBundle\Model\UserInterface;
+use App\Api\User\Validator\Constraints\UserProperties;
 
 /**
  * @ORM\Entity
@@ -30,6 +31,7 @@ class User extends BaseUser
     /**
      * @Groups({"post"})
      * @var string
+     * @UserProperties
      */
     protected $email;
 

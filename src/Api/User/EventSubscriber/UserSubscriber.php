@@ -18,34 +18,27 @@ use Symfony\Component\HttpFoundation\Request;
 
 class UserSubscriber implements EventSubscriberInterface
 {
-    private $mailer;
-
-    public function __construct(\Swift_Mailer $mailer)
-    {
-        $this->mailer = $mailer;
-    }
 
     public static function getSubscribedEvents()
     {
         return [
-            KernelEvents::VIEW => ['sendMail', EventPriorities::POST_WRITE],
+            KernelEvents::VIEW => ['sendMail', EventPriorities::PRE_WRITE],
         ];
     }
 
     public function sendMail(GetResponseForControllerResultEvent $event)
     {
-        $book = $event->getControllerResult();
+        /** @var User $user */
+        $user = $event->getControllerResult();
         $method = $event->getRequest()->getMethod();
 
-        if (!$book instanceof User || Request::METHOD_POST !== $method) {
+        if (!$user instanceof User || Request::METHOD_POST !== $method) {
             return;
         }
 
-        $message = (new \Swift_Message('A new book has been added'))
-            ->setFrom('system@example.com')
-            ->setTo('contact@les-tilleuls.coop')
-            ->setBody(sprintf('The book #%d has been added.', $book->getId()));
-
-        $this->mailer->send($message);
+        $user->setUsername($user->getEmail());
+        $user->setUsernameCanonical($user->getEmail());
+        $user->setEnabled(true);
+        $user->setRoles(["ROLE_USER"]);
     }
 }
