@@ -3,7 +3,7 @@
 * System using DDD architecture & Symfony 4
 ```
     git clone https://github.com/castroCrea/hackathon.git
-    cd user-api-with-jwttoken
+    cd hackathon
     install docker
     docker-compose up
     docker-compose exec php-fpm bash
