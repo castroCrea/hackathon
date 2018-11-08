@@ -1,0 +1,10 @@
+App\Domain\Gender\Entity\Gender:
+    type: entity
+    table: Gender
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        value:
+            type: integer

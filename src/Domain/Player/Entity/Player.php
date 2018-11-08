@@ -8,6 +8,7 @@ use App\Domain\Race\Entity\Race;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use App\Api\Player\Validator\PlayerValidator;
 
 /**
  * @ORM\Entity
@@ -38,6 +39,7 @@ class Player
     /**
      * @Groups({"post", "get_player", "get"})
      * @var string
+     * @PlayerValidator
      */
     private $name;
 

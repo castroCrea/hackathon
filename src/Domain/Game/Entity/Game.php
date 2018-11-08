@@ -18,6 +18,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
+use App\Api\Player\Validator\GameValidator;
 
 /**
  * @ORM\Entity
@@ -48,6 +49,7 @@ class Game
     /**
      * @Groups({"post", "get"})
      * @var string
+     * @GameValidator
      */
     protected $title;
 
