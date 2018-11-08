@@ -2,7 +2,7 @@
 * User Api platform With JWT token Skeleton
 * System using DDD architecture & Symfony 4
 ```
-    git clone https://github.com/castroCrea/user-api-with-jwttoken.git
+    git clone https://github.com/castroCrea/hackathon.git
     cd user-api-with-jwttoken
     install docker
     docker-compose up
