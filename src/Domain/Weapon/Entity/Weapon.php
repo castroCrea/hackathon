@@ -10,13 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
  * @ApiResource(
- *     collectionOperations={"post"={
- *              "method"="POST",
- *              "normalization_context"={"groups"={"post"}},
- *              "denormalization_context"={"groups"={"post"}}
- *      },
- *
- *     "get"={
+ *     collectionOperations={"get"={
  *              "method"="GET",
  *              "normalization_context"={"groups"={"get"}}
  *      }

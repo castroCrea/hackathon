@@ -10,13 +10,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
  * @ApiResource(
- *     collectionOperations={"post"={
- *              "method"="POST",
- *              "normalization_context"={"groups"={"post"}},
- *              "denormalization_context"={"groups"={"post"}}
- *      },
- *
- *     "get"={
+ *     collectionOperations={"get"={
  *              "method"="GET",
  *              "normalization_context"={"groups"={"get"}}
  *      }
@@ -33,18 +27,19 @@ class Protection
     private $id;
 
     /**
-     * @Groups({"post", "get"})
+     * @Groups({"get"})
      * @var string
      */
     private $name;
 
     /**
-     * @Groups({"post", "get"})
+     * @Groups({"get"})
      * @var int
      */
     private $level;
 
     /**
+     * @Groups({"get"})
      * @ORM\ManyToMany(targetEntity="App\Domain\Player\Entity\Player", cascade={"persist"})
      */
     private $players;

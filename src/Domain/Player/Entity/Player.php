@@ -23,7 +23,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *              "normalization_context"={"groups"={"get_player"}}
  *      }
  *     },
- *     itemOperations={"get"={"method"="GET"}}
+ *     itemOperations={"get"={"method"="GET"}, "put"={"groups"={"put"}}}
  * )
  * )
  */
@@ -36,111 +36,114 @@ class Player
     private $id;
 
     /**
-     * @Groups({"post", "get_player"})
+     * @Groups({"post", "get_player", "put"})
      * @var string
      */
     private $name;
 
     /**
-     * @Groups({"get_player"})
+     * @Groups({"get_player", "put"})
      * @var int
      */
     private $level;
 
     /**
-     * @Groups({"get_player"})
+     * @Groups({"get_player", "put"})
      * @var int
      */
     private $experience;
 
     /**
-     * @Groups({"get_player"})
+     * @Groups({"get_player", "put"})
      * @var int
      */
     private $life;
 
     /**
-     * @Groups({"get_player"})
+     * @Groups({"get_player", "put"})
      * @var int
      */
     private $maneuverability;
 
     /**
-     * @Groups({"get_player"})
+     * @Groups({"get_player", "put"})
      * @var int
      */
     private $attackPower;
 
     /**
-     * @Groups({"get_player"})
+     * @Groups({"get_player", "put"})
      * @var int
      */
     private $defense;
 
     /**
-     * @Groups({"get_player"})
+     * @Groups({"get_player", "put"})
      * @var int
      */
     private $parade;
 
     /**
-     * @Groups({"get_player"})
+     * @Groups({"get_player", "put"})
      * @var int
      */
     private $gold;
 
     /**
-     * @Groups({"post", "get"})
+     * @Groups({"post", "get", "put"})
      * @var string
      */
     private $picture;
     /**
-     * @Groups({"post", "get_player"})
+     * @Groups({"post", "get_player", "put"})
      * @var Game
      */
     private $game;
 
     /**
-     * @Groups({"post", "get_player"})
+     * @Groups({"post", "get_player", "put"})
      * @var Game
      */
     private $gameMaster;
 
     /**
-     * @Groups({"get_player"})
+     * @Groups({"get_player", "put"})
      * @var bool
      */
     private $inUse;
 
     /**
-     * @Groups({"post", "get_player"})
+     * @Groups({"post", "get_player", "put"})
      * @ORM\ManyToOne(targetEntity="App\Domain\Race\Entity\Race", inversedBy="players")
      */
     private $race;
 
     /**
-     * @Groups({"post", "get_player"})
+     * @Groups({"post", "get_player", "put"})
      * @ORM\ManyToOne(targetEntity="App\Domain\Job\Entity\Job", inversedBy="players")
      */
     private $job;
 
     /**
-     * @Groups({"post", "get_player"})
+     * @Groups({"post", "get_player", "put"})
      * @ORM\ManyToOne(targetEntity="App\Domain\Gender\Entity\Gender", inversedBy="players")
      */
     private $gender;
 
     /**
+     * @Groups({"get_player", "put"}, )
      * @ORM\ManyToMany(targetEntity="App\Domain\Protection\Entity\Protection", cascade={"persist"})
      */
     private $protections;
 
     /**
+     * @Groups({"get_player", "put"})
      * @ORM\ManyToMany(targetEntity="App\Domain\Weapon\Entity\Weapon", cascade={"persist"})
      */
     private $weapons;
 
     /**
+     * @Groups({"get_player", "put"})
      * @ORM\ManyToMany(targetEntity="App\Domain\ObjectItem\Entity\ObjectItem", cascade={"persist"})
      */
     private $objectItems;
