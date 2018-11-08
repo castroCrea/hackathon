@@ -40,3 +40,75 @@ App\Domain\Player\Entity\Player:
                 race_id:
                     referencedColumnName: id
             orphanRemoval: false
+        job:
+            targetEntity: App\Domain\Job\Entity\Job
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                job_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        gender:
+            targetEntity: App\Domain\Gender\Entity\Gender
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                gender_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    manyToMany:
+        protections:
+            targetEntity: App\Domain\Protection\Entity\Protection
+            cascade:
+              - 'persist'
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: players
+            joinTable:
+                name: protections_players
+                joinColumns:
+                    -
+                        name: player_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: protection_id
+                        referencedColumnName: id
+        weapons:
+            targetEntity: App\Domain\Weapon\Entity\Weapon
+            cascade:
+              - 'persist'
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: players
+            joinTable:
+                name: weapons_players
+                joinColumns:
+                    -
+                        name: player_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: weapon_id
+                        referencedColumnName: id
+        objectItems:
+            targetEntity: App\Domain\ObjectItem\Entity\ObjectItem
+            cascade:
+              - 'persist'
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: players
+            joinTable:
+                name: objectItems_players
+                joinColumns:
+                    -
+                        name: player_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: objectItem_id
+                        referencedColumnName: id

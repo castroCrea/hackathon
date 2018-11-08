@@ -95,14 +95,43 @@ class Player
     private $picture;
 
     /**
+     * @Groups({"get"})
      * @var bool
      */
     private $inUse;
 
     /**
+     * @Groups({"post", "get"})
      * @ORM\ManyToOne(targetEntity="App\Domain\Race\Entity\Race", inversedBy="players")
      */
     private $race;
+
+    /**
+     * @Groups({"post", "get"})
+     * @ORM\ManyToOne(targetEntity="App\Domain\Job\Entity\Job", inversedBy="players")
+     */
+    private $job;
+
+    /**
+     * @Groups({"post", "get"})
+     * @ORM\ManyToOne(targetEntity="App\Domain\Gender\Entity\Gender", inversedBy="players")
+     */
+    private $gender;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Domain\Protection\Entity\Protection", cascade={"persist"})
+     */
+    private $protections;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Domain\Weapon\Entity\Weapon", cascade={"persist"})
+     */
+    private $weapons;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Domain\ObjectItem\Entity\ObjectItem", cascade={"persist"})
+     */
+    private $objectItems;
 
     /**
      * @return int
@@ -312,5 +341,84 @@ class Player
         $this->race = $race;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getProtections()
+    {
+        return $this->protections;
+    }
+
+    /**
+     * @param mixed $protections
+     */
+    public function setProtections($protections): void
+    {
+        $this->protections = $protections;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWeapons()
+    {
+        return $this->weapons;
+    }
+
+    /**
+     * @param mixed $weapons
+     */
+    public function setWeapons($weapons): void
+    {
+        $this->weapons = $weapons;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getObjectItems()
+    {
+        return $this->objectItems;
+    }
+
+    /**
+     * @param mixed $objectItems
+     */
+    public function setObjectItems($objectItems): void
+    {
+        $this->objectItems = $objectItems;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getJob()
+    {
+        return $this->job;
+    }
+
+    /**
+     * @param mixed $job
+     */
+    public function setJob($job): void
+    {
+        $this->job = $job;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGender()
+    {
+        return $this->gender;
+    }
+
+    /**
+     * @param mixed $gender
+     */
+    public function setGender($gender): void
+    {
+        $this->gender = $gender;
+    }
 
 }

@@ -13,3 +13,7 @@ App\Domain\ObjectItem\Entity\ObjectItem:
             type: text
         value:
             type: integer
+    manyToMany:
+        players:
+            targetEntity: App\Domain\Player\Entity\Player
+            mappedBy: objectItems

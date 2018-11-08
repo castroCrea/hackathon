@@ -13,3 +13,7 @@ App\Domain\Weapon\Entity\Weapon:
             type: text
         strength:
             type: integer
+    manyToMany:
+        players:
+            targetEntity: App\Domain\Player\Entity\Player
+            mappedBy: weapons

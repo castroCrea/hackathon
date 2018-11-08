@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Domain\Weapon\Entity;
+namespace App\Domain\Gender\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
@@ -25,7 +25,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * )  itemOperations={"get"}
  * )
  */
-class Weapon
+class Gender
 {
     /**
      * @var int
@@ -39,27 +39,9 @@ class Weapon
     private $name;
 
     /**
-     * @Groups({"post", "get"})
-     * @var string
-     */
-    private $description;
-
-    /**
-     * @Groups({"post", "get"})
-     * @var int
-     */
-    private $strength;
-
-    /**
-     * @ORM\ManyToMany(targetEntity="App\Domain\Player\Entity\Player", cascade={"persist"})
+     * @ORM\OneToMany(targetEntity="App\Domain\Player\Entity\Player", mappedBy="gender")
      */
     private $players;
-
-    /**
-     * @Groups({"post", "get"})
-     * @var
-     */
-    private $dice;
 
     /**
      * @return int
@@ -94,38 +76,6 @@ class Weapon
     }
 
     /**
-     * @return string
-     */
-    public function getDescription(): string
-    {
-        return $this->description;
-    }
-
-    /**
-     * @param string $description
-     */
-    public function setDescription(string $description): void
-    {
-        $this->description = $description;
-    }
-
-    /**
-     * @return int
-     */
-    public function getStrength(): int
-    {
-        return $this->strength;
-    }
-
-    /**
-     * @param int $strength
-     */
-    public function setStrength(int $strength): void
-    {
-        $this->strength = $strength;
-    }
-
-    /**
      * @return mixed
      */
     public function getPlayers()
@@ -140,5 +90,6 @@ class Weapon
     {
         $this->players = $players;
     }
+
 
 }

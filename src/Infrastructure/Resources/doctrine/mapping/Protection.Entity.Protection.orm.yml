@@ -11,3 +11,7 @@ App\Domain\Protection\Entity\Protection:
             length: 255
         level:
             type: integer
+    manyToMany:
+        players:
+            targetEntity: App\Domain\Player\Entity\Player
+            mappedBy: protections
