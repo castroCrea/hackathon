@@ -4,12 +4,21 @@ namespace App\Domain\User\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 use FOS\UserBundle\Model\User as BaseUser;
 use FOS\UserBundle\Model\UserInterface;
 
 /**
  * @ORM\Entity
- * @ApiResource()
+ *
+ * @ApiResource(
+ *     collectionOperations={"post"={
+ *              "method"="POST",
+ *              "normalization_context"={"groups"={"post"}},
+ *              "denormalization_context"={"groups"={"post"}}
+ *      }},
+ *     itemOperations={"get"={"method"="GET"}}
+ * )
  */
 class User extends BaseUser
 {
@@ -19,6 +28,7 @@ class User extends BaseUser
     protected $id;
 
     /**
+     * @Groups({"post"})
      * @var string
      */
     protected $email;
@@ -29,6 +39,7 @@ class User extends BaseUser
     protected $fullname;
 
     /**
+     * @Groups({"post"})
      * @var string
      */
     protected $plainPassword;
