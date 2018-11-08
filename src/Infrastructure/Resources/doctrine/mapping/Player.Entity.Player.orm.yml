@@ -6,8 +6,6 @@ App\Domain\Player\Entity\Player:
             type: integer
             generator: { strategy: AUTO }
         fields:
-            title:
-                type: integer
             level:
                 type: integer
             experience:

@@ -4,7 +4,8 @@ namespace App\Domain\Player\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
-use FOS\UserBundle\Model\User as BaseUser;
+use Doctrine\Common\Collections\ArrayCollection;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
@@ -14,182 +15,216 @@ class Player
 {
 
     /**
-     * @var int
+     * @ORM\Column(type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
 
     /**
-     * @var int
+     * @Assert\Type(
+     *     type="integer",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
      */
     private $level;
 
     /**
-     * @var int
+     * @Assert\Type(
+     *     type="integer",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
      */
     private $experience;
 
     /**
-     * @var int
+     * @Assert\Type(
+     *     type="integer",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
      */
     private $life;
 
     /**
-     * @var int
+     * @Assert\Type(
+     *     type="integer",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
      */
     private $maneuverability;
 
     /**
-     * @var int
+     * @Assert\Type(
+     *     type="integer",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
      */
     private $attackPower;
 
     /**
-     * @var int
+     * @Assert\Type(
+     *     type="integer",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
      */
     private $defense;
 
     /**
-     * @var int
+     * @Assert\Type(
+     *     type="integer",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
      */
     private $parade;
 
     /**
-     * @var int
+     * @Assert\Type(
+     *     type="integer",
+     *     message="The value {{ value }} is not a valid {{ type }}."
+     * )
      */
     private $gold;
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getId(): int
+    public function getId()
     {
         return $this->id;
     }
 
     /**
-     * @return int
+     * @param mixed $id
      */
-    public function getLevel(): int
+    public function setId($id): void
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLevel()
     {
         return $this->level;
     }
 
     /**
-     * @param int $level
+     * @param mixed $level
      */
-    public function setLevel(int $level): void
+    public function setLevel($level): void
     {
         $this->level = $level;
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getExperience(): int
+    public function getExperience()
     {
         return $this->experience;
     }
 
     /**
-     * @param int $experience
+     * @param mixed $experience
      */
-    public function setExperience(int $experience): void
+    public function setExperience($experience): void
     {
         $this->experience = $experience;
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getLife(): int
+    public function getLife()
     {
         return $this->life;
     }
 
     /**
-     * @param int $life
+     * @param mixed $life
      */
-    public function setLife(int $life): void
+    public function setLife($life): void
     {
         $this->life = $life;
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getManeuverability(): int
+    public function getManeuverability()
     {
         return $this->maneuverability;
     }
 
     /**
-     * @param int $maneuverability
+     * @param mixed $maneuverability
      */
-    public function setManeuverability(int $maneuverability): void
+    public function setManeuverability($maneuverability): void
     {
         $this->maneuverability = $maneuverability;
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getAttackPower(): int
+    public function getAttackPower()
     {
         return $this->attackPower;
     }
 
     /**
-     * @param int $attackPower
+     * @param mixed $attackPower
      */
-    public function setAttackPower(int $attackPower): void
+    public function setAttackPower($attackPower): void
     {
         $this->attackPower = $attackPower;
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getDefense(): int
+    public function getDefense()
     {
         return $this->defense;
     }
 
     /**
-     * @param int $defense
+     * @param mixed $defense
      */
-    public function setDefense(int $defense): void
+    public function setDefense($defense): void
     {
         $this->defense = $defense;
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getParade(): int
+    public function getParade()
     {
         return $this->parade;
     }
 
     /**
-     * @param int $parade
+     * @param mixed $parade
      */
-    public function setParade(int $parade): void
+    public function setParade($parade): void
     {
         $this->parade = $parade;
     }
 
     /**
-     * @return int
+     * @return mixed
      */
-    public function getGold(): int
+    public function getGold()
     {
         return $this->gold;
     }
 
     /**
-     * @param int $gold
+     * @param mixed $gold
      */
-    public function setGold(int $gold): void
+    public function setGold($gold): void
     {
         $this->gold = $gold;
     }
