@@ -13,5 +13,8 @@
         "watch": "encore dev --watch",
         "build": "encore production"
     },
-    "dependencies": {}
+    "dependencies": {
+        "axios": "^0.18.0",
+        "vue-router": "^3.0.1"
+    }
 }
