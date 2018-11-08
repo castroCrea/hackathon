@@ -36,7 +36,7 @@ class Player
     private $id;
 
     /**
-     * @Groups({"post", "get_player"})
+     * @Groups({"post", "get_player", "get"})
      * @var string
      */
     private $name;
@@ -110,7 +110,7 @@ class Player
      * @Groups({"get_player"})
      * @var bool
      */
-    private $inUse;
+    private $inUse = true;
 
     /**
      * @Groups({"post", "get_player"})
@@ -180,7 +180,7 @@ class Player
     /**
      * @return int
      */
-    public function getLevel(): int
+    public function getLevel(): ?int
     {
         return $this->level;
     }
@@ -196,7 +196,7 @@ class Player
     /**
      * @return int
      */
-    public function getExperience(): int
+    public function getExperience(): ?int
     {
         return $this->experience;
     }
@@ -212,7 +212,7 @@ class Player
     /**
      * @return int
      */
-    public function getLife(): int
+    public function getLife(): ?int
     {
         return $this->life;
     }
@@ -228,7 +228,7 @@ class Player
     /**
      * @return int
      */
-    public function getManeuverability(): int
+    public function getManeuverability(): ?int
     {
         return $this->maneuverability;
     }
@@ -244,7 +244,7 @@ class Player
     /**
      * @return int
      */
-    public function getAttackPower(): int
+    public function getAttackPower(): ?int
     {
         return $this->attackPower;
     }
@@ -260,7 +260,7 @@ class Player
     /**
      * @return int
      */
-    public function getDefense(): int
+    public function getDefense(): ?int
     {
         return $this->defense;
     }
@@ -276,7 +276,7 @@ class Player
     /**
      * @return int
      */
-    public function getParade(): int
+    public function getParade(): ?int
     {
         return $this->parade;
     }
@@ -292,7 +292,7 @@ class Player
     /**
      * @return int
      */
-    public function getGold(): int
+    public function getGold(): ?int
     {
         return $this->gold;
     }
@@ -308,7 +308,7 @@ class Player
     /**
      * @return string
      */
-    public function getPicture(): string
+    public function getPicture(): ?string
     {
         return $this->picture;
     }
@@ -325,7 +325,7 @@ class Player
     /**
      * @return Game
      */
-    public function getGameMaster(): Game
+    public function getGameMaster(): ?Game
     {
         return $this->gameMaster;
     }
@@ -453,7 +453,7 @@ class Player
     /**
      * @return Game
      */
-    public function getGame(): Game
+    public function getGame(): ?Game
     {
         return $this->game;
     }

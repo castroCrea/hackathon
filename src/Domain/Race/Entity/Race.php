@@ -22,7 +22,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  *      }
  *     },
  *     itemOperations={"get"={"method"="GET"}}
- * )  itemOperations={"get"}
+ * )
  * )
  */
 class Race
@@ -84,7 +84,7 @@ class Race
     /**
      * @return int
      */
-    public function getCoeff(): int
+    public function getCoeff(): ?int
     {
         return $this->coeff;
     }

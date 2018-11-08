@@ -11,6 +11,7 @@ App\Domain\Race\Entity\Race:
             length: 255
         coeff:
             type: integer
+            nullable: true
     oneToMany:
         players:
             targetEntity: App\Domain\Player\Entity\Player

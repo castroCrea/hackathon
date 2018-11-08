@@ -11,22 +11,31 @@ App\Domain\Player\Entity\Player:
             length: 255
         level:
             type: integer
+            nullable: true
         experience:
             type: integer
+            nullable: true
         life:
             type: integer
+            nullable: true
         maneuverability:
             type: integer
+            nullable: true
         attackPower:
             type: integer
+            nullable: true
         defense:
             type: integer
+            nullable: true
         parade:
             type: integer
+            nullable: true
         gold:
             type: integer
+            nullable: true
         picture:
             type: text
+            nullable: true
         inUse:
             type: boolean
     manyToOne:
