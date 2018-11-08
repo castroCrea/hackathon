@@ -27,3 +27,16 @@ App\Domain\Player\Entity\Player:
             type: integer
         picture:
             type: text
+        inUse:
+            type: boolean
+    manyToOne:
+        race:
+            targetEntity: App\Domain\Race\Entity\Race
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                race_id:
+                    referencedColumnName: id
+            orphanRemoval: false

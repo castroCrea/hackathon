@@ -3,6 +3,7 @@
 namespace App\Domain\Player\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Domain\Race\Entity\Race;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -92,6 +93,16 @@ class Player
      * @var string
      */
     private $picture;
+
+    /**
+     * @var bool
+     */
+    private $inUse;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Domain\Race\Entity\Race", inversedBy="players")
+     */
+    private $race;
 
     /**
      * @return int
@@ -269,6 +280,37 @@ class Player
         $this->picture = $picture;
     }
 
+    /**
+     * @return bool
+     */
+    public function isInUse(): bool
+    {
+        return $this->inUse;
+    }
+
+    /**
+     * @param bool $inUse
+     */
+    public function setInUse(bool $inUse): void
+    {
+        $this->inUse = $inUse;
+    }
+
+    /**
+     * @return Race
+     */
+    public function getRace()
+    {
+        return $this->race;
+    }
+
+    /**
+     * @param Race $race
+     */
+    public function setRace(Race $race): void
+    {
+        $this->race = $race;
+    }
 
 
 }
