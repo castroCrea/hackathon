@@ -45,6 +45,11 @@ class Protection
     private $level;
 
     /**
+     * @ORM\ManyToMany(targetEntity="App\Domain\Player\Entity\Player", cascade={"persist"})
+     */
+    private $players;
+
+    /**
      * @return int
      */
     public function getId(): int
@@ -92,6 +97,21 @@ class Protection
         $this->level = $level;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getPlayers()
+    {
+        return $this->players;
+    }
+
+    /**
+     * @param mixed $players
+     */
+    public function setPlayers($players): void
+    {
+        $this->players = $players;
+    }
 
 
 }
