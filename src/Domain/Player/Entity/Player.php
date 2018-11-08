@@ -20,11 +20,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  *
  *     "get"={
  *              "method"="GET",
- *              "normalization_context"={"groups"={"get"}}
+ *              "normalization_context"={"groups"={"get_player"}}
  *      }
  *     },
  *     itemOperations={"get"={"method"="GET"}}
- * )  itemOperations={"get"}
+ * )
  * )
  */
 class Player
@@ -36,55 +36,55 @@ class Player
     private $id;
 
     /**
-     * @Groups({"post", "get"})
+     * @Groups({"post", "get_player"})
      * @var string
      */
     private $name;
 
     /**
-     * @Groups({"get"})
+     * @Groups({"get_player"})
      * @var int
      */
     private $level;
 
     /**
-     * @Groups({"get"})
+     * @Groups({"get_player"})
      * @var int
      */
     private $experience;
 
     /**
-     * @Groups({"get"})
+     * @Groups({"get_player"})
      * @var int
      */
     private $life;
 
     /**
-     * @Groups({"get"})
+     * @Groups({"get_player"})
      * @var int
      */
     private $maneuverability;
 
     /**
-     * @Groups({"get"})
+     * @Groups({"get_player"})
      * @var int
      */
     private $attackPower;
 
     /**
-     * @Groups({"get"})
+     * @Groups({"get_player"})
      * @var int
      */
     private $defense;
 
     /**
-     * @Groups({"get"})
+     * @Groups({"get_player"})
      * @var int
      */
     private $parade;
 
     /**
-     * @Groups({"get"})
+     * @Groups({"get_player"})
      * @var int
      */
     private $gold;
@@ -95,13 +95,13 @@ class Player
      */
     private $picture;
     /**
-     * @Groups({"post", "get"})
+     * @Groups({"post", "get_player"})
      * @var Game
      */
     private $game;
 
     /**
-     * @Groups({"post", "get"})
+     * @Groups({"post", "get_player"})
      * @var Game
      */
     private $gameMaster;

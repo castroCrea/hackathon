@@ -8,25 +8,31 @@
 
 namespace App\Domain\Game\Entity;
 
-use ApiPlatform\Core\Annotation\ApiResource;
 use App\Domain\Player\Entity\Player;
-use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\PersistentCollection;
+use ApiPlatform\Core\Annotation\ApiResource;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
-*
-* @ORM\Entity
-*
-* @ApiResource(
-*     collectionOperations={"post"={
-*              "method"="POST",
-*              "normalization_context"={"groups"={"get"}},
-*              "denormalization_context"={"groups"={"post"}}
-*      }},
-*     itemOperations={"get"={"method"="GET"}}
-* )
-*/
+ * @ORM\Entity
+ * @ApiResource(
+ *     collectionOperations={"post"={
+ *              "method"="POST",
+ *              "normalization_context"={"groups"={"post"}},
+ *              "denormalization_context"={"groups"={"post"}}
+ *      },
+ *
+ *     "get"={
+ *              "method"="GET",
+ *              "normalization_context"={"groups"={"get"}}
+ *      }
+ *     },
+ *     itemOperations={"get"={"method"="GET"}}
+ * )
+ * )
+ */
 class Game
 {
     /**
@@ -150,7 +156,7 @@ class Game
     /**
      * @return PersistentCollection
      */
-    public function getPlayers(): PersistentCollection
+    public function getPlayers(): ?PersistentCollection
     {
         return $this->players;
     }
@@ -166,7 +172,7 @@ class Game
     /**
      * @return Player
      */
-    public function getMasterGame(): Player
+    public function getMasterGame(): ?Player
     {
         return $this->masterGame;
     }
