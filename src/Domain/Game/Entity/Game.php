@@ -18,7 +18,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
-use App\Api\Player\Validator\GameValidator;
+
 
 /**
  * @ORM\Entity
@@ -44,44 +44,43 @@ class Game
     /**
      * @var int
      */
-    protected $id;
-
-    /**
-     * @Groups({"post", "get"})
-     * @var string
-     * @GameValidator
-     */
-    protected $title;
+    private $id;
 
     /**
      * @Groups({"post", "get"})
      * @var string
      */
-    protected $description;
+    private $title;
+
+    /**
+     * @Groups({"post", "get"})
+     * @var string
+     */
+    private $description;
 
     /**
      * @Groups({"get"})
      * @var \DateTime
      */
-    protected $creationDate;
+    private $creationDate;
 
     /**
      * @Groups({"post", "get"})
      * @var int
      */
-    protected $maxPlayer;
+    private $maxPlayer;
 
     /**
      * @Groups({"get"})
      * @var PersistentCollection
      */
-    protected $players;
+    private $players;
 
     /**
      * @Groups({"get"})
      * @var Player
      */
-    protected $masterGame;
+    private $masterGame;
 
     public function __construct()
     {

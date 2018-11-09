@@ -13,18 +13,23 @@ use App\Api\Player\Validator\PlayerValidator;
 /**
  * @ORM\Entity
  * @ApiResource(
- *     collectionOperations={"post"={
- *              "method"="POST",
- *              "normalization_context"={"groups"={"post"}},
- *              "denormalization_context"={"groups"={"post"}}
- *      },
- *
- *     "get"={
+ *     collectionOperations={
+     *     "post"={
+     *              "method"="POST",
+     *              "normalization_context"={"groups"={"get_player"}},
+     *              "denormalization_context"={"groups"={"post"}}
+     *      },
+     *     "get"={
+     *              "method"="GET",
+     *              "normalization_context"={"groups"={"get_player"}}
+     *      }
+ *     },
+ *     itemOperations={
+ *          "get"={
  *              "method"="GET",
  *              "normalization_context"={"groups"={"get_player"}}
- *      }
- *     },
- *     itemOperations={"get"={"method"="GET"}}
+ *          }
+ *     }
  * )
  * )
  */
@@ -39,7 +44,6 @@ class Player
     /**
      * @Groups({"post", "get_player", "get"})
      * @var string
-     * @PlayerValidator
      */
     private $name;
 

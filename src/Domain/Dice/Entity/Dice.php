@@ -29,16 +29,10 @@ class Dice
     private $id;
 
     /**
-     * @Groups({"post", "get"})
-     * @var Player
-     */
-    private $player;
-
-    /**
      * @Groups({"get"})
      * @var \DateTime
      */
-    private $date;
+    private $creationDate;
 
     /**
      * @Groups({"post", "get"})
@@ -51,9 +45,12 @@ class Dice
      */
     private $value;
 
+    /**
+     * Dice constructor.
+     */
     public function __construct()
     {
-        $this->date = new \DateTime();
+        $this->creationDate = new \DateTime();
         $this->setValue();
     }
 
@@ -66,27 +63,11 @@ class Dice
     }
 
     /**
-     * @return Player
-     */
-    public function getPlayer(): Player
-    {
-        return $this->player;
-    }
-
-    /**
-     * @param Player $player
-     */
-    public function setPlayer(Player $player): void
-    {
-        $this->player = $player;
-    }
-
-    /**
      * @return \DateTime
      */
     public function getDate(): \DateTime
     {
-        return $this->date;
+        return $this->creationDate;
     }
 
     /**
