@@ -1,0 +1,10 @@
+App\Domain\Dice\Entity\DiceType:
+    type: entity
+    table: DiceType
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        value:
+            type: integer

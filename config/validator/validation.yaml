@@ -1,0 +1,7 @@
+App\Api\Game\Entity\Game:
+  constraints:
+    - App\Api\Game\Validator\GameValidator: ~
+
+App\Api\Player\Entity\Player:
+  constraints:
+    - App\Api\Player\Validator\PlayerValidator: ~

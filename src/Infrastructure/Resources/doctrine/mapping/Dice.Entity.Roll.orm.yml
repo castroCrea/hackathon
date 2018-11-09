@@ -1,0 +1,42 @@
+App\Domain\Dice\Entity\Roll:
+    type: entity
+    table: Roll
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        creationDate:
+            type: datetime
+
+    manyToOne:
+        player:
+            targetEntity: App\Domain\Player\Entity\Player
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                player_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        dice1:
+            targetEntity: App\Domain\Dice\Entity\Dice
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                dice_1_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        dice2:
+            targetEntity: App\Domain\Dice\Entity\Dice
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                dice_2_id:
+                    referencedColumnName: id
+            orphanRemoval: false

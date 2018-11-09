@@ -1,0 +1,17 @@
+App\Domain\Protection\Entity\Protection:
+    type: entity
+    table: Protection
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 255
+        level:
+            type: integer
+    manyToMany:
+        players:
+            targetEntity: App\Domain\Player\Entity\Player
+            mappedBy: protections
