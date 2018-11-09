@@ -44,12 +44,11 @@ App\Domain\Player\Entity\Player:
             cascade: {  }
             fetch: LAZY
             mappedBy: null
-            inversedBy: null
+            inversedBy: players
             joinColumns:
                 race_id:
                     referencedColumnName: id
             orphanRemoval: false
-
         game:
           targetEntity: App\Domain\Game\Entity\Game
           cascade:
@@ -86,7 +85,6 @@ App\Domain\Player\Entity\Player:
                 job_id:
                     referencedColumnName: id
             orphanRemoval: false
-
     manyToMany:
         protections:
             targetEntity: App\Domain\Protection\Entity\Protection
