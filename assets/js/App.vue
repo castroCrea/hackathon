@@ -2,7 +2,14 @@
   <div id="app">
     <div class="container">
       <div class="col">
-        <h1>Welcome folks !!!</h1>
+        <h1 class="text-center">Jeux de role</h1>
+      </div>
+    </div>
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <router-view></router-view>
+        </div>
       </div>
     </div>
   </div>
@@ -10,9 +17,19 @@
 
 <script>
 
+
 export default {
   name: 'app',
   components: {
+  },
+  data(){
+    return {}
+  },
+  methods: {
+    signIn(e) {
+        console.log('toto');
+        e.preventDefault();
+    }
   }
 }
 
