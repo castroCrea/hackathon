@@ -1,6 +1,6 @@
 App\Domain\Race\Entity\Race:
     type: entity
-    table: Race
+    table: race
     id:
         id:
             type: integer

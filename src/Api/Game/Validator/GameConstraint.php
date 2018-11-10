@@ -13,7 +13,7 @@ use Symfony\Component\Validator\Constraint;
 /**
 * @Annotation
 */
-class GameValidator extends Constraint
+class GameConstraint extends Constraint
 {
     public $message = 'min 3 user';
 

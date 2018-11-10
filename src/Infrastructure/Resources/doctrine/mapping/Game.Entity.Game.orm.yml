@@ -23,10 +23,9 @@ App\Domain\Game\Entity\Game:
             - 'persist'
             fetch: LAZY
             mappedBy: game
-    oneToOne:
-        masterGame:
+        masterPlayer:
             targetEntity: App\Domain\Player\Entity\Player
-            inversedBy: gameMaster
-            joinColumn:
-                name: master_game_id
-                referencedColumnName: id
+            cascade:
+            - 'persist'
+            fetch: LAZY
+            mappedBy: gameMaster

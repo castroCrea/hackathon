@@ -35,7 +35,7 @@ class Dice
     private $creationDate;
 
     /**
-     * @Groups({"post", "get"})
+     * @Groups({"post_roll", "get"})
      * @var DiceType
      */
     private $diceType;
@@ -51,7 +51,6 @@ class Dice
     public function __construct()
     {
         $this->creationDate = new \DateTime();
-        $this->setValue();
     }
 
     /**
@@ -95,11 +94,11 @@ class Dice
     }
 
     /**
-     *
+     * @param int $value
      */
-    public function setValue(): void
+    public function setValue(int $value): void
     {
-        $this->value = rand(1, $this->diceType->getValue());
+        $this->value = $value;
     }
 
 

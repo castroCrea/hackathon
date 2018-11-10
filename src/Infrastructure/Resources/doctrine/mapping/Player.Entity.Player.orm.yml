@@ -1,6 +1,6 @@
 App\Domain\Player\Entity\Player:
     type: entity
-    table: Player
+    table: player
     id:
         id:
             type: integer
@@ -38,6 +38,7 @@ App\Domain\Player\Entity\Player:
             nullable: true
         inUse:
             type: boolean
+            default: true
     manyToOne:
         race:
             targetEntity: App\Domain\Race\Entity\Race
@@ -59,7 +60,19 @@ App\Domain\Player\Entity\Player:
           joinColumns:
             game_id:
               referencedColumnName: id
-              nullable: false
+              nullable: true
+          orphanRemoval: false
+        gameMaster:
+          targetEntity: App\Domain\Game\Entity\Game
+          cascade:
+          - 'persist'
+          fetch: LAZY
+          mappedBy: null
+          inversedBy: masterPlayer
+          joinColumns:
+            game_master_id:
+              referencedColumnName: id
+              nullable: true
           orphanRemoval: false
         gender:
           targetEntity: App\Domain\Gender\Entity\Gender
@@ -71,20 +84,16 @@ App\Domain\Player\Entity\Player:
             gender_id:
               referencedColumnName: id
           orphanRemoval: false
-    oneToOne:
-      gameMaster:
-        targetEntity: App\Domain\Game\Entity\Game
-        mappedBy: masterGame
         job:
-            targetEntity: App\Domain\Job\Entity\Job
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                job_id:
-                    referencedColumnName: id
-            orphanRemoval: false
+          targetEntity: App\Domain\Job\Entity\Job
+          cascade: {  }
+          fetch: LAZY
+          mappedBy: null
+          inversedBy: null
+          joinColumns:
+            job_id:
+              referencedColumnName: id
+          orphanRemoval: false
     manyToMany:
         protections:
             targetEntity: App\Domain\Protection\Entity\Protection

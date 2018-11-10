@@ -18,10 +18,11 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\DateFilter;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
-
+use App\Api\Game\Validator\GameConstraint;
 
 /**
  * @ORM\Entity
+ * @GameConstraint
  * @ApiResource(
  *     collectionOperations={"post"={
  *              "method"="POST",
@@ -80,7 +81,7 @@ class Game
      * @Groups({"get"})
      * @var Player
      */
-    private $masterGame;
+    private $masterPlayer;
 
     public function __construct()
     {
@@ -178,17 +179,17 @@ class Game
     /**
      * @return Player
      */
-    public function getMasterGame(): ?Player
+    public function getMasterPlayer(): Player
     {
-        return $this->masterGame;
+        return $this->masterPlayer;
     }
 
     /**
-     * @param Player $masterGame
+     * @param Player $masterPlayer
      */
-    public function setMasterGame(Player $masterGame): void
+    public function setMasterPlayer(Player $masterPlayer): void
     {
-        $this->masterGame = $masterGame;
+        $this->masterPlayer = $masterPlayer;
     }
 
 }
