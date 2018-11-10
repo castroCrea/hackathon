@@ -10,8 +10,6 @@
     composer update
     bin/console d:s:u --force
     curl -sL https://deb.nodesource.com/setup_8.x — Node.js 8 LTS "Carbon" | bash -
-    sudo apt-get install -y nodejs
-    npm install
     apt-get install -y nodejs
     npm install
     ./node_modules/.bin/encore dev

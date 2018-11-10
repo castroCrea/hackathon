@@ -17,3 +17,9 @@ yarn-error.log
 /.web-server-pid
 ###< symfony/web-server-bundle ###
 
+
+###> Config ###
+/config/jwt/private.pem
+/config/jwt/private.pem-back
+###< Config ###
+
