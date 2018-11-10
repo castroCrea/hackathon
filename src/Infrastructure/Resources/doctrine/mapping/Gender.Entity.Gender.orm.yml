@@ -1,6 +1,6 @@
 App\Domain\Gender\Entity\Gender:
     type: entity
-    table: Gender
+    table: gender
     id:
         id:
             type: integer

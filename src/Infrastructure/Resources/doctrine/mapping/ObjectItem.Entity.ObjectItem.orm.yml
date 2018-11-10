@@ -1,6 +1,6 @@
 App\Domain\ObjectItem\Entity\ObjectItem:
     type: entity
-    table: ObjectItem
+    table: object_item
     id:
         id:
             type: integer

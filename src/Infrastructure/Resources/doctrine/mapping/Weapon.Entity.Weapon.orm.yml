@@ -1,6 +1,6 @@
 App\Domain\Weapon\Entity\Weapon:
     type: entity
-    table: Weapon
+    table: weapon
     id:
         id:
             type: integer

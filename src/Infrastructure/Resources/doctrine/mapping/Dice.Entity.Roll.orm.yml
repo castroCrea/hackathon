@@ -1,6 +1,6 @@
 App\Domain\Dice\Entity\Roll:
     type: entity
-    table: Roll
+    table: roll
     id:
         id:
             type: integer
@@ -20,23 +20,21 @@ App\Domain\Dice\Entity\Roll:
                 player_id:
                     referencedColumnName: id
             orphanRemoval: false
-        dice1:
+    manyToMany:
+        dices:
             targetEntity: App\Domain\Dice\Entity\Dice
-            cascade: {  }
+            cascade:
+              - 'persist'
             fetch: LAZY
             mappedBy: null
             inversedBy: null
-            joinColumns:
-                dice_1_id:
-                    referencedColumnName: id
-            orphanRemoval: false
-        dice2:
-            targetEntity: App\Domain\Dice\Entity\Dice
-            cascade: {  }
-            fetch: LAZY
-            mappedBy: null
-            inversedBy: null
-            joinColumns:
-                dice_2_id:
-                    referencedColumnName: id
-            orphanRemoval: false
+            joinTable:
+                name: roll_dices
+                joinColumns:
+                    -
+                        name: roll_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: dice_id
+                        referencedColumnName: id

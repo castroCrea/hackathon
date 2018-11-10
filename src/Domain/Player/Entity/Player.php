@@ -8,10 +8,11 @@ use App\Domain\Race\Entity\Race;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use App\Api\Player\Validator\PlayerValidator;
+use App\Api\Player\Validator\PlayerConstraint;
 
 /**
  * @ORM\Entity
+ * @PlayerConstraint
  * @ApiResource(
  *     collectionOperations={
  *     "post"={
@@ -121,37 +122,31 @@ class Player
 
     /**
      * @Groups({"post", "get_player", "put"})
-     * @ORM\ManyToOne(targetEntity="App\Domain\Race\Entity\Race", inversedBy="players")
      */
     private $race;
 
     /**
      * @Groups({"post", "get_player", "put"})
-     * @ORM\ManyToOne(targetEntity="App\Domain\Job\Entity\Job", inversedBy="players")
      */
     private $job;
 
     /**
      * @Groups({"post", "get_player", "put"})
-     * @ORM\ManyToOne(targetEntity="App\Domain\Gender\Entity\Gender", inversedBy="players")
      */
     private $gender;
 
     /**
      * @Groups({"get_player", "put"}, )
-     * @ORM\ManyToMany(targetEntity="App\Domain\Protection\Entity\Protection", cascade={"persist"})
      */
     private $protections;
 
     /**
      * @Groups({"get_player", "put"})
-     * @ORM\ManyToMany(targetEntity="App\Domain\Weapon\Entity\Weapon", cascade={"persist"})
      */
     private $weapons;
 
     /**
      * @Groups({"get_player", "put"})
-     * @ORM\ManyToMany(targetEntity="App\Domain\ObjectItem\Entity\ObjectItem", cascade={"persist"})
      */
     private $objectItems;
 

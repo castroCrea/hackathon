@@ -14,10 +14,12 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-class PlayerValidator extends Constraint
+class PlayerConstraint extends Constraint
 {
     public $message = 'max user';
     public $messageMaster = 'already a game master';
+    public $cannotBeNull = 'Game can\'t be null';
+    public $sameName = 'Name already in use';
 
     /**
      * @return array|string

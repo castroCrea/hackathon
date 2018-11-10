@@ -14,7 +14,7 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-final class GameValidatorConstraint extends ConstraintValidator
+final class GameConstraintValidator extends ConstraintValidator
 {
     private $entityManager;
 
@@ -26,9 +26,8 @@ final class GameValidatorConstraint extends ConstraintValidator
 
     public function validate($value, Constraint $constraint): void
     {
-        /** @var Game $game */
+        /** @var GameConstraint $game */
         $game = $this->context->getObject();
-
 
         if ($game->getMaxPlayer() < 3) {
             $this->context->buildViolation($constraint->message)->addViolation();

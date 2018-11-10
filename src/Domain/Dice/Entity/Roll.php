@@ -4,6 +4,7 @@ namespace App\Domain\Dice\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use App\Domain\Player\Entity\Player;
+use Doctrine\Common\Collections\ArrayCollection;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -13,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiResource(
  *     collectionOperations={"post"={
  *              "method"="POST",
- *              "normalization_context"={"groups"={"post"}},
+ *              "normalization_context"={"groups"={"get"}},
  *              "denormalization_context"={"groups"={"post_roll"}}
  *      }
  *     },
@@ -36,15 +37,9 @@ class Roll
 
     /**
      * @Groups({"post_roll", "get"})
-     * @var Dice
+     * @var ArrayCollection
      */
-    private $dice1;
-
-    /**
-     * @Groups({"post_roll", "get"})
-     * @var Dice
-     */
-    private $dice2;
+    private $dices;
 
     /**
      * @Groups({ "get"})
@@ -85,35 +80,27 @@ class Roll
     }
 
     /**
-     * @return Player
+     * @return ArrayCollection
      */
-    public function getDice1(): Player
+    public function getDices(): iterable
     {
-        return $this->dice1;
+        return $this->dices;
     }
 
     /**
-     * @param Player $dice1
+     * @param array $dices
      */
-    public function setDice1(Player $dice1): void
+    public function setDices(array $dices): void
     {
-        $this->dice1 = $dice1;
+        $this->dices = $dices;
     }
 
     /**
-     * @return Player
+     * @param Dice $dice
      */
-    public function getDice2(): Player
+    public function addDice(Dice $dice): void
     {
-        return $this->dice2;
-    }
-
-    /**
-     * @param Player $dice2
-     */
-    public function setDice2(Player $dice2): void
-    {
-        $this->dice2 = $dice2;
+        $this->dices[] = $dice;
     }
 
     /**
