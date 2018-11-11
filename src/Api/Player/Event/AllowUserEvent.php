@@ -52,7 +52,7 @@ final class AllowUserEvent implements EventSubscriberInterface
         $player = $event->getControllerResult();
         $method = $event->getRequest()->getMethod();
 
-        if (!$player instanceof Player || Request::METHOD_PUT !== $method || $this->requestStack->getCurrentRequest()->get('__route') === "")  {
+        if (!$player instanceof Player || Request::METHOD_PUT !== $method || $this->requestStack->getCurrentRequest()->get('__route') === "api_players_put_in_use_item")  {
             return;
         }
 

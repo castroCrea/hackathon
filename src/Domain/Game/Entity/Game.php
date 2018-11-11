@@ -19,6 +19,7 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
 use App\Api\Game\Validator\GameConstraint;
+use App\Domain\Game\Controller\GameStatusController;
 
 /**
  * @ORM\Entity
@@ -38,16 +39,17 @@ use App\Api\Game\Validator\GameConstraint;
  *     },
  *     itemOperations={
  *          "get"={"method"="GET"},
- *          "put_in_use"={
+ *          "game_status"={
  *              "method"="PUT",
- *              "path"="/games/{start}/{id}"
- *
- *     TODO: Controller et player modif only if game is on (do table game start)
+ *              "path"="/games/{start}/{id}",
+ *              "controller"=GameStatusController::class,
+ *              "denormalization_context"={"groups"={"game_status"}}
  *          }
  *     }
  * )
  * )
  */
+// TODO: Controller et player modif only if game is on (do table game start)
 class Game
 {
     /**
@@ -90,6 +92,11 @@ class Game
      * @var Player
      */
     private $masterPlayer;
+    /**
+    * @Groups({"get"})
+    * @var Timer
+    */
+    private $timer;
 
     public function __construct()
     {
@@ -198,6 +205,22 @@ class Game
     public function setMasterPlayer(Player $masterPlayer): void
     {
         $this->masterPlayer = $masterPlayer;
+    }
+
+    /**
+     * @return Timer
+     */
+    public function getTimer(): Timer
+    {
+        return $this->timer;
+    }
+
+    /**
+     * @param Timer $timer
+     */
+    public function setTimer(Timer $timer): void
+    {
+        $this->timer = $timer;
     }
 
 }
