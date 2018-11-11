@@ -11,8 +11,9 @@
     bin/console d:s:u --force
     curl -sL https://deb.nodesource.com/setup_8.x — Node.js 8 LTS "Carbon" | bash -
     apt-get install -y nodejs
+    cd /application/assets/vuejs
     npm install
-    ./node_modules/.bin/encore dev
+    npm run build
    ``` 
     
     Copy the .env.dist en .env in root path
@@ -68,4 +69,22 @@ In case first ```openssl``` command forces you to input password use following t
         _username: string
         _password: string
         
+
+
+    
+## FRONT END -- Watch/Build vuejs app
+
+In ``` assets/vuejs``` directory
+
+If needed install npm assets ``` npm install ```
+
+Build for production : ``` npm run prod ```
+
+Start webserver (watch files): ``` npm run serve```
+
+Production build and files watches are visible at two different urls.
+
+Production (normal mode): ``` http://localhost:8080 ```
+
+Development (watching files with hot reload): ``` http://<YOUR_DOCKER_IP_ADDRESS>:8080 ```
 
