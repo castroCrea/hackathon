@@ -3,6 +3,9 @@
     <div class="container">
       <div class="row">
         <div class="col">
+          <h2>Liste des parties</h2>
+        </div>
+        <div class="col ml-auto text-right">
           <router-link to="/create-game" class="btn btn-primary">Nouvelle partie</router-link>
         </div>
 
@@ -25,7 +28,7 @@
 
 
 export default {
-  name: 'home',
+  name: 'GameList',
   components: {
   },
   data(){

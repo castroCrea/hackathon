@@ -27,7 +27,7 @@
 <script>
 
     export default {
-        name: "NewGame",
+        name: "GameCreate",
         data(){
             return {
                 user: {

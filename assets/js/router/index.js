@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router'
 
-import Home from '../components/Home'
-import NewGame from '../components/NewGame'
+import Home from '../components/GameList'
+import NewGame from '../components/GameCreate'
 
 Vue.use(VueRouter)
 
@@ -20,6 +20,7 @@ const routes = [
     },
 ]
 
-export default new Router({
-  routes,
+export default new VueRouter({
+    routes,
+    mode: 'history'
 });
