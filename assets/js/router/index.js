@@ -1,22 +1,19 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router'
 
-import Home from '../components/GameList'
-import NewGame from '../components/GameCreate'
-
 Vue.use(VueRouter)
 
 
 const routes = [
     {
         path: '/',
-        name: 'App',
-        component: Home
+        name: 'Home',
+        component: () => import/* webpackChunkName: "GameList" */ ('../components/GameList')
     },
     {
         path: '/create-game',
-        name: 'NewGame',
-        component: NewGame
+        name: 'GameCreate',
+        component: () => import/* webpackChunkName: "GameCreate" */ ('../components/GameCreate')
     },
 ]
 
