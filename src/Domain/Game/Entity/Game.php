@@ -179,7 +179,7 @@ class Game
     /**
      * @return Player
      */
-    public function getMasterPlayer(): Player
+    public function getMasterPlayer(): iterable
     {
         return $this->masterPlayer;
     }
