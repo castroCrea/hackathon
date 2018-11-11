@@ -39,6 +39,8 @@ App\Domain\Player\Entity\Player:
         inUse:
             type: boolean
             default: true
+        token:
+            type: string
     manyToOne:
         race:
             targetEntity: App\Domain\Race\Entity\Race

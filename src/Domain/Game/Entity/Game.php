@@ -36,7 +36,15 @@ use App\Api\Game\Validator\GameConstraint;
  *              "filters"={"game.creationDate", "game.title"}
  *      }
  *     },
- *     itemOperations={"get"={"method"="GET"}}
+ *     itemOperations={
+ *          "get"={"method"="GET"},
+ *          "put_in_use"={
+ *              "method"="PUT",
+ *              "path"="/games/{start}/{id}"
+ *
+ *     TODO: Controller et player modif only if game is on (do table game start)
+ *          }
+ *     }
  * )
  * )
  */
@@ -73,7 +81,7 @@ class Game
 
     /**
      * @Groups({"get"})
-     * @var PersistentCollection
+     * @var iterable
      */
     private $players;
 
@@ -161,9 +169,9 @@ class Game
     }
 
     /**
-     * @return PersistentCollection
+     * @return iterable
      */
-    public function getPlayers(): ?PersistentCollection
+    public function getPlayers(): ?iterable
     {
         return $this->players;
     }
@@ -179,7 +187,7 @@ class Game
     /**
      * @return Player
      */
-    public function getMasterPlayer(): Player
+    public function getMasterPlayer(): ?Player
     {
         return $this->masterPlayer;
     }
