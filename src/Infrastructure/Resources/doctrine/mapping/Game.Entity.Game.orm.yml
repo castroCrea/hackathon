@@ -14,6 +14,8 @@ App\Domain\Game\Entity\Game:
             type: text
         maxPlayer:
             type: integer
+        isFinish:
+            type: boolean
         creationDate:
             type: datetime
     oneToOne:

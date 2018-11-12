@@ -19,7 +19,7 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
 use App\Api\Game\Validator\GameConstraint;
-use App\Domain\Game\Controller\GameStatusController;
+use App\Controller\GameStatusController;
 
 /**
  * @ORM\Entity
@@ -41,7 +41,7 @@ use App\Domain\Game\Controller\GameStatusController;
  *          "get"={"method"="GET"},
  *          "game_status"={
  *              "method"="PUT",
- *              "path"="/games/{start}/{id}",
+ *              "path"="/games/{status}/{id}",
  *              "controller"=GameStatusController::class,
  *              "denormalization_context"={"groups"={"game_status"}}
  *          }
@@ -68,6 +68,12 @@ class Game
      * @var string
      */
     private $description;
+
+    /**
+     * @Groups({"post", "get", "get_list"})
+     * @var string
+     */
+    private $isFinish = false;
 
     /**
      * @Groups({"get", "get_list"})
@@ -223,4 +229,19 @@ class Game
         $this->timer = $timer;
     }
 
+    /**
+     * @return string
+     */
+    public function getIsFinish(): string
+    {
+        return $this->isFinish;
+    }
+
+    /**
+     * @param string $isFinish
+     */
+    public function setIsFinish(string $isFinish): void
+    {
+        $this->isFinish = $isFinish;
+    }
 }

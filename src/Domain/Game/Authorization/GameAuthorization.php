@@ -12,17 +12,33 @@ namespace App\Domain\Game\Authorization;
 use App\Domain\Game\Entity\Game;
 use App\Domain\Player\Entity\Player;
 
+/**
+ * Class GameAuthorization
+ *
+ * @package App\Domain\Game\Authorization
+ */
 class GameAuthorization
 {
-    public function gameIsOn(Game $game) {
+    /**
+     * Find that the game is on -> it means that there is a master player and he is in use and there is a least 2 inUse player
+     *
+     * @param Game $game
+     *
+     * @return bool
+     */
+    public function gameMinimumToStart(Game $game) {
         // if there is a game master playing
-        if ($game->getMasterPlayer()->isInUse()) {
+        if ($game->getMasterPlayer() && $game->getMasterPlayer()->isInUse() && !$game->getIsFinish()) {
             $i = 0;
             /** @var Player $player */
             foreach ($game->getPlayers() as $player) {
                 // if user is in use we add one
                 $i += ($player->isInUse()) ? 1 : 0;
             }
+            if ($i > 1) {
+                return true;
+            }
         }
+        return false;
     }
 }

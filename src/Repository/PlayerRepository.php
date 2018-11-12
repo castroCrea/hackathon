@@ -13,8 +13,18 @@ use App\Domain\Player\Entity\Player;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
+/**
+ * Class PlayerRepository
+ *
+ * @package App\Repository
+ */
 class PlayerRepository extends ServiceEntityRepository
 {
+    /**
+     * PlayerRepository constructor.
+     *
+     * @param RegistryInterface $registry
+     */
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Player::class);
