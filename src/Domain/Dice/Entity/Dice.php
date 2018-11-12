@@ -29,18 +29,19 @@ class Dice
     private $id;
 
     /**
-     * @Groups({"get"})
+     * @Groups({"get", "get_roll"})
      * @var \DateTime
      */
     private $creationDate;
 
     /**
-     * @Groups({"post_roll", "get"})
+     * @Groups({"post_roll", "get", "get_roll"})
      * @var DiceType
      */
     private $diceType;
 
     /**
+     * @Groups({"get", "get_roll"})
      * @var int
      */
     private $value;

@@ -28,7 +28,7 @@ class DiceType
     private $id;
 
     /**
-     * @Groups({"get"})
+     * @Groups({"get", "get_roll"})
      * @var string
      */
     private $value;

@@ -14,7 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ApiResource(
  *     collectionOperations={"post"={
  *              "method"="POST",
- *              "normalization_context"={"groups"={"get"}},
+ *              "normalization_context"={"groups"={"get_roll"}},
  *              "denormalization_context"={"groups"={"post_roll"}}
  *      }
  *     },
@@ -36,13 +36,13 @@ class Roll
     private $player;
 
     /**
-     * @Groups({"post_roll", "get"})
+     * @Groups({"post_roll", "get_roll"})
      * @var ArrayCollection
      */
     private $dices;
 
     /**
-     * @Groups({ "get"})
+     * @Groups({ "get_roll"})
      * @var \DateTime
      */
     private $creationDate;
