@@ -86,5 +86,12 @@ Production build and files watches are visible at two different urls.
 
 Production (normal mode): ``` http://localhost:8080 ```
 
-Development (watching files with hot reload): ``` http://<YOUR_DOCKER_IP_ADDRESS>:8080 ```
+Development (watching files with hot reload): ``` http://<YOUR_DOCKER_IP_ADDRESS>:8080 ``` ex 192.168.1.1:8080
+    
+### Retrieve your docker ip
+
+in your terminal display your docker containers with ``` docker ps ```
+and copy the corresponding name (in our case : docker-symfony4-php-fpm), it also working with container id
+
+Then type ``` docker inspect docker-symfony4-php-fpm | grep "IPAddress" ```
 
