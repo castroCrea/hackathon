@@ -13,7 +13,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\PropertyAccess\Exception\InvalidPropertyPathException;
-use Symfony\Component\Translation\Exception\NotFoundResourceException;
 
 /**
  * Class SetDiceEvent
