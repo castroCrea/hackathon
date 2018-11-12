@@ -52,3 +52,13 @@ services:
         autowire: false
         autoconfigure: false
         public: false
+
+    game.isFinish:
+        parent: 'api_platform.doctrine.orm.boolean_filter'
+        arguments: [ { isFinish: ~ } ]
+        tags:  [ 'api_platform.filter' ]
+        # The following are mandatory only if a _defaults section is defined
+        # You may want to isolate filters in a dedicated file to avoid adding them
+        autowire: false
+        autoconfigure: false
+        public: false

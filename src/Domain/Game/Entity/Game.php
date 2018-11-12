@@ -34,7 +34,7 @@ use App\Controller\GameStatusController;
  *     "get"={
  *              "method"="GET",
  *              "normalization_context"={"groups"={"get_list"}},
- *              "filters"={"game.creationDate", "game.title"}
+ *              "filters"={"game.creationDate", "game.title", "game.isFinish"}
  *      }
  *     },
  *     itemOperations={
@@ -69,7 +69,7 @@ class Game
     private $description;
 
     /**
-     * @Groups({"post", "get", "get_list"})
+     * @Groups({"get", "get_list"})
      * @var string
      */
     private $isFinish = false;

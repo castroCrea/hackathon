@@ -71,4 +71,12 @@ class PlayerRepository extends ServiceEntityRepository
 
         return $qb->getQuery()->getResult();
     }
+
+    /**
+     * @param Player $player
+     */
+    public function save(Player $player){
+        $this->_em->persist($player);
+        $this->_em->flush();
+    }
 }
