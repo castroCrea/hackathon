@@ -3,6 +3,7 @@
 namespace App\Domain\Weapon\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Domain\Dice\Entity\DiceType;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -27,33 +28,33 @@ class Weapon
     private $id;
 
     /**
-     * @Groups({"post", "get"})
+     * @Groups({"get"})
      * @var string
      */
     private $name;
 
     /**
-     * @Groups({"post", "get"})
+     * @Groups({"get"})
      * @var string
      */
     private $description;
 
     /**
-     * @Groups({"post", "get"})
+     * @Groups({"get"})
      * @var int
      */
     private $strength;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Domain\Player\Entity\Player", cascade={"persist"})
+     * @var iterable
      */
     private $players;
 
     /**
-     * @Groups({"post", "get"})
-     * @var
+     * @Groups({"get"})
+     * @var DiceType
      */
-    private $dice;
+    private $diceType;
 
     /**
      * @return int
@@ -135,4 +136,19 @@ class Weapon
         $this->players = $players;
     }
 
+    /**
+     * @return mixed
+     */
+    public function getDiceType(): ?DiceType
+    {
+        return $this->diceType;
+    }
+
+    /**
+     * @param DiceType $diceType
+     */
+    public function setDiceType(DiceType $diceType): void
+    {
+        $this->diceType = $diceType;
+    }
 }

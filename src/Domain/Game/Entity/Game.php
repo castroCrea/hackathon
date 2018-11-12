@@ -19,6 +19,7 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\NumericFilter;
 use App\Api\Game\Validator\GameConstraint;
+use App\Domain\Game\Controller\GameStatusController;
 
 /**
  * @ORM\Entity
@@ -36,7 +37,15 @@ use App\Api\Game\Validator\GameConstraint;
  *              "filters"={"game.creationDate", "game.title"}
  *      }
  *     },
- *     itemOperations={"get"={"method"="GET"}}
+ *     itemOperations={
+ *          "get"={"method"="GET"},
+ *          "game_status"={
+ *              "method"="PUT",
+ *              "path"="/games/{start}/{id}",
+ *              "controller"=GameStatusController::class,
+ *              "denormalization_context"={"groups"={"game_status"}}
+ *          }
+ *     }
  * )
  * )
  */
@@ -73,7 +82,7 @@ class Game
 
     /**
      * @Groups({"get"})
-     * @var PersistentCollection
+     * @var iterable
      */
     private $players;
 
@@ -82,6 +91,11 @@ class Game
      * @var Player
      */
     private $masterPlayer;
+    /**
+    * @Groups({"get"})
+    * @var Timer
+    */
+    private $timer;
 
     public function __construct()
     {
@@ -161,9 +175,9 @@ class Game
     }
 
     /**
-     * @return PersistentCollection
+     * @return iterable
      */
-    public function getPlayers(): ?PersistentCollection
+    public function getPlayers(): ?iterable
     {
         return $this->players;
     }
@@ -179,7 +193,7 @@ class Game
     /**
      * @return Player
      */
-    public function getMasterPlayer(): iterable
+    public function getMasterPlayer(): ?Player
     {
         return $this->masterPlayer;
     }
@@ -190,6 +204,22 @@ class Game
     public function setMasterPlayer(Player $masterPlayer): void
     {
         $this->masterPlayer = $masterPlayer;
+    }
+
+    /**
+     * @return Timer
+     */
+    public function getTimer(): Timer
+    {
+        return $this->timer;
+    }
+
+    /**
+     * @param Timer $timer
+     */
+    public function setTimer(Timer $timer): void
+    {
+        $this->timer = $timer;
     }
 
 }

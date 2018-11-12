@@ -22,7 +22,7 @@ use App\Api\Player\Validator\PlayerConstraint;
  *      },
  *     "get"={
  *              "method"="GET",
- *              "normalization_context"={"groups"={"get_player"}}
+ *              "normalization_context"={"groups"={"get"}}
  *      }
  *     },
  *     itemOperations={
@@ -30,7 +30,17 @@ use App\Api\Player\Validator\PlayerConstraint;
  *              "method"="GET",
  *              "normalization_context"={"groups"={"get_player"}}
  *          },
- *          "put"={"groups"={"put"}}
+ *          "put"={
+ *              "method"="PUT",
+ *              "normalization_context"={"groups"={"get_player"}},
+ *              "denormalization_context"={"groups"={"put"}}
+ *          },
+ *          "put_in_use"={
+ *              "method"="PUT",
+ *              "path"="/players/in_use/{id}",
+ *              "normalization_context"={"groups"={"get_player"}},
+ *              "denormalization_context"={"groups"={"put_in_use"}}
+ *          }
  *     }
  * )
  * )
@@ -39,116 +49,131 @@ class Player
 {
 
     /**
+     * @Groups({"get_player", "get"})
      * @var int
      */
     private $id;
 
     /**
-     * @Groups({"post", "get_player", "put", "get"})
+     * @Groups({"post", "get_player", "get"})
      * @var string
      */
     private $name;
 
     /**
-     * @Groups({"get_player", "put"})
+     * @Groups({"get_player", "put", "get"})
      * @var int
      */
     private $level;
 
     /**
-     * @Groups({"get_player", "put"})
+     * @Groups({"get_player", "put", "get"})
      * @var int
      */
     private $experience;
 
     /**
-     * @Groups({"get_player", "put"})
+     * @Groups({"get_player", "put", "get"})
      * @var int
      */
     private $life;
 
     /**
-     * @Groups({"get_player", "put"})
+     * @Groups({"get_player", "put", "get"})
      * @var int
      */
     private $maneuverability;
 
     /**
-     * @Groups({"get_player", "put"})
+     * @Groups({"get_player", "put", "get"})
      * @var int
      */
     private $attackPower;
 
     /**
-     * @Groups({"get_player", "put"})
+     * @Groups({"get_player", "put", "get"})
      * @var int
      */
     private $defense;
 
     /**
-     * @Groups({"get_player", "put"})
+     * @Groups({"get_player", "put", "get"})
      * @var int
      */
     private $parade;
 
     /**
-     * @Groups({"get_player", "put"})
+     * @Groups({"get_player", "put", "get"})
      * @var int
      */
     private $gold;
 
     /**
-     * @Groups({"post", "get", "put"})
+     * @Groups({"post", "get", "put", "get"})
      * @var string
      */
     private $picture;
+
     /**
-     * @Groups({"post", "get_player", "put"})
+     * @Groups({"get_player"})
+     * @var string
+     */
+    private $token;
+    /**
+     * @Groups({"post", "get_player", "get"})
      * @var Game
      */
     private $game;
 
     /**
-     * @Groups({"post", "get_player", "put"})
+     * @Groups({"post", "get_player", "get"})
      * @var Game
      */
     private $gameMaster;
 
     /**
-     * @Groups({"get_player", "put"})
+     * @Groups({"get_player", "put", "get", "put_in_use"})
      * @var bool
      */
     private $inUse = true;
 
     /**
-     * @Groups({"post", "get_player", "put"})
+     * @Groups({"post", "get_player", "put", "get"})
      */
     private $race;
 
     /**
-     * @Groups({"post", "get_player", "put"})
+     * @Groups({"post", "get_player", "put", "get"})
      */
     private $job;
 
     /**
-     * @Groups({"post", "get_player", "put"})
+     * @Groups({"post", "get_player", "put", "get"})
      */
     private $gender;
 
     /**
-     * @Groups({"get_player", "put"}, )
+     * @Groups({"get_player", "put", "get"})
      */
     private $protections;
 
     /**
-     * @Groups({"get_player", "put"})
+     * @Groups({"get_player", "put", "get"})
      */
     private $weapons;
 
     /**
-     * @Groups({"get_player", "put"})
+     * @Groups({"get_player", "put", "get"})
      */
     private $objectItems;
+
+    /**
+     * Player constructor.
+     */
+    public function __construct()
+    {
+        $this->setToken();
+    }
 
     /**
      * @return int
@@ -471,4 +496,19 @@ class Player
         $this->game = $game;
     }
 
+    /**
+     * @return string
+     */
+    public function getToken(): ?string
+    {
+        return $this->token;
+    }
+
+    /**
+     *
+     */
+    public function setToken(): void
+    {
+        $this->token = mt_rand();
+    }
 }

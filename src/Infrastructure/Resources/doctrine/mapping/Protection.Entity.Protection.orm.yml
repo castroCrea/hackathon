@@ -15,3 +15,15 @@ App\Domain\Protection\Entity\Protection:
         players:
             targetEntity: App\Domain\Player\Entity\Player
             mappedBy: protections
+
+    manyToOne:
+        diceType:
+            targetEntity: App\Domain\Dice\Entity\DiceType
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                dice_type_id:
+                    referencedColumnName: id
+            orphanRemoval: false

@@ -3,6 +3,7 @@
 namespace App\Domain\ObjectItem\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
+use App\Domain\Dice\Entity\DiceType;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -46,10 +47,15 @@ class ObjectItem
     private $value;
 
     /**
-     * @Groups({"get"})
-     * @ORM\ManyToMany(targetEntity="App\Domain\Player\Entity\Player", cascade={"persist"})
+     * @var iterable
      */
     private $players;
+
+    /**
+     * @Groups({"get"})
+     * @var DiceType
+     */
+    private $diceType;
 
     /**
      * @return int
@@ -129,5 +135,21 @@ class ObjectItem
     public function setPlayers($players): void
     {
         $this->players = $players;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getDiceType(): ?DiceType
+    {
+        return $this->diceType;
+    }
+
+    /**
+     * @param DiceType $diceType
+     */
+    public function setDiceType(DiceType $diceType): void
+    {
+        $this->diceType = $diceType;
     }
 }

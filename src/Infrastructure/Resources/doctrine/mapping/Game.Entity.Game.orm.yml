@@ -29,3 +29,9 @@ App\Domain\Game\Entity\Game:
             - 'persist'
             fetch: LAZY
             mappedBy: gameMaster
+        timer:
+            targetEntity: App\Domain\Game\Entity\Timer
+            cascade:
+            - 'persist'
+            fetch: LAZY
+            mappedBy: game
