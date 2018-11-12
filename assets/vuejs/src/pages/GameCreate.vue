@@ -27,7 +27,7 @@
 <script>
 
     export default {
-        name: "NewGame",
+        name: "GameCreate",
         data(){
             return {
                 user: {
@@ -41,7 +41,7 @@
             createGame(e) {
                 this.axios.post('http://localhost:8000/api/games', this.user)
                 .then((response) => {
-                  this.$router.push('/')
+                  this.$router.push({name: 'Home'})
                 })
             }
         }

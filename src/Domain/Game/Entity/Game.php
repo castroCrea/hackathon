@@ -49,7 +49,6 @@ use App\Controller\GameStatusController;
  * )
  * )
  */
-// TODO: Controller et player modif only if game is on (do table game start)
 class Game
 {
     /**
