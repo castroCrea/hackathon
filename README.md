@@ -10,11 +10,10 @@
     composer update
     bin/console d:s:u --force
     curl -sL https://deb.nodesource.com/setup_8.x — Node.js 8 LTS "Carbon" | bash -
-    sudo apt-get install -y nodejs
-    npm install
     apt-get install -y nodejs
+    cd /application/assets/vuejs
     npm install
-    ./node_modules/.bin/encore dev
+    npm run build
    ``` 
     
     Copy the .env.dist en .env in root path
@@ -70,4 +69,29 @@ In case first ```openssl``` command forces you to input password use following t
         _username: string
         _password: string
         
+
+
+    
+## FRONT END -- Watch/Build vuejs app
+
+In ``` assets/vuejs``` directory
+
+If needed install npm assets ``` npm install ```
+
+Build for production : ``` npm run prod ```
+
+Start webserver (watch files): ``` npm run serve```
+
+Production build and files watches are visible at two different urls.
+
+Production (normal mode): ``` http://localhost:8080 ```
+
+Development (watching files with hot reload): ``` http://<YOUR_DOCKER_IP_ADDRESS>:8080 ``` ex 192.168.1.1:8080
+    
+### Retrieve your docker ip
+
+in your terminal display your docker containers with ``` docker ps ```
+and copy the corresponding name (in our case : docker-symfony4-php-fpm), it also working with container id
+
+Then type ``` docker inspect docker-symfony4-php-fpm | grep "IPAddress" ```
 
