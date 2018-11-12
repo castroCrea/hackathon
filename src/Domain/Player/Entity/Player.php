@@ -49,19 +49,19 @@ class Player
 {
 
     /**
-     * @Groups({"get_player", "get"})
+     * @Groups({"get_player", "get", "get_list"})
      * @var int
      */
     private $id;
 
     /**
-     * @Groups({"post", "get_player", "get"})
+     * @Groups({"post", "get_player", "get", "get_list"})
      * @var string
      */
     private $name;
 
     /**
-     * @Groups({"get_player", "put", "get"})
+     * @Groups({"get_player", "put", "get", "get_list"})
      * @var int
      */
     private $level;
@@ -109,7 +109,7 @@ class Player
     private $gold;
 
     /**
-     * @Groups({"post", "get", "put", "get"})
+     * @Groups({"post", "get", "put", "get", "get_list"})
      * @var string
      */
     private $picture;
@@ -132,23 +132,23 @@ class Player
     private $gameMaster;
 
     /**
-     * @Groups({"get_player", "put", "get", "put_in_use"})
+     * @Groups({"get_player", "put", "get", "put_in_use", "get_list"})
      * @var bool
      */
     private $inUse = true;
 
     /**
-     * @Groups({"post", "get_player", "put", "get"})
+     * @Groups({"post", "get_player", "put", "get", "get_list"})
      */
     private $race;
 
     /**
-     * @Groups({"post", "get_player", "put", "get"})
+     * @Groups({"post", "get_player", "put", "get", "get_list"})
      */
     private $job;
 
     /**
-     * @Groups({"post", "get_player", "put", "get"})
+     * @Groups({"post", "get_player", "put", "get", "get_list"})
      */
     private $gender;
 

@@ -41,6 +41,19 @@ App\Domain\Player\Entity\Player:
             default: true
         token:
             type: string
+    oneToOne:
+        gameMaster:
+          targetEntity: App\Domain\Game\Entity\Game
+          cascade:
+          - 'persist'
+          fetch: LAZY
+          mappedBy: null
+          inversedBy: masterPlayer
+          joinColumns:
+            game_master_id:
+              referencedColumnName: id
+              nullable: true
+          orphanRemoval: false
     manyToOne:
         race:
             targetEntity: App\Domain\Race\Entity\Race
@@ -63,19 +76,7 @@ App\Domain\Player\Entity\Player:
             game_id:
               referencedColumnName: id
               nullable: true
-          orphanRemoval: false
-        gameMaster:
-          targetEntity: App\Domain\Game\Entity\Game
-          cascade:
-          - 'persist'
-          fetch: LAZY
-          mappedBy: null
-          inversedBy: masterPlayer
-          joinColumns:
-            game_master_id:
-              referencedColumnName: id
-              nullable: true
-          orphanRemoval: false
+          orphanRemoval: falsev
         gender:
           targetEntity: App\Domain\Gender\Entity\Gender
           cascade: {  }

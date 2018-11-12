@@ -27,14 +27,13 @@ class Job
     private $id;
 
     /**
-     * @Groups({"get"})
+     * @Groups({"get", "get_list"})
      * @var string
      */
     private $name;
 
     /**
      * @Groups({"get"})
-     * @ORM\OneToMany(targetEntity="App\Domain\Player\Entity\Player", mappedBy="job")
      */
     private $players;
 
