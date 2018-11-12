@@ -38,12 +38,12 @@ class Timer
      */
     private $id;
     /**
-     * @Groups({"get"})
+     * @Groups({"get", "get_list"})
      * @var \DateTime
      */
     private $startDate;
     /**
-     * @Groups({"get"})
+     * @Groups({"get", "get_list"})
      * @var \DateTime
      */
     private $endDate;

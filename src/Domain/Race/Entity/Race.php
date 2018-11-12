@@ -27,7 +27,7 @@ class Race
     private $id;
 
     /**
-     * @Groups({"get"})
+     * @Groups({"get", "get_list"})
      * @var string
      */
     private $name;

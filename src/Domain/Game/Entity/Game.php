@@ -33,7 +33,7 @@ use App\Domain\Game\Controller\GameStatusController;
  *
  *     "get"={
  *              "method"="GET",
- *              "normalization_context"={"groups"={"get"}},
+ *              "normalization_context"={"groups"={"get_list"}},
  *              "filters"={"game.creationDate", "game.title"}
  *      }
  *     },
@@ -58,42 +58,42 @@ class Game
     private $id;
 
     /**
-     * @Groups({"post", "get"})
+     * @Groups({"post", "get", "get_list"})
      * @var string
      */
     private $title;
 
     /**
-     * @Groups({"post", "get"})
+     * @Groups({"post", "get", "get_list"})
      * @var string
      */
     private $description;
 
     /**
-     * @Groups({"get"})
+     * @Groups({"get", "get_list"})
      * @var \DateTime
      */
     private $creationDate;
 
     /**
-     * @Groups({"post", "get"})
+     * @Groups({"post", "get", "get_list"})
      * @var int
      */
     private $maxPlayer;
 
     /**
-     * @Groups({"get"})
+     * @Groups({"get", "get_list"})
      * @var iterable
      */
     private $players;
 
     /**
-     * @Groups({"get"})
+     * @Groups({"get", "get_list"})
      * @var Player
      */
     private $masterPlayer;
     /**
-    * @Groups({"get"})
+    * @Groups({"get", "get_list"})
     * @var Timer
     */
     private $timer;
@@ -194,7 +194,7 @@ class Game
     /**
      * @return Player
      */
-    public function getMasterPlayer(): ?Player
+    public function getMasterPlayer() : ?Player
     {
         return $this->masterPlayer;
     }
@@ -210,7 +210,7 @@ class Game
     /**
      * @return Timer
      */
-    public function getTimer(): Timer
+    public function getTimer(): ?iterable
     {
         return $this->timer;
     }
