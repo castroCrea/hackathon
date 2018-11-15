@@ -12,6 +12,8 @@ App\Entity\Game:
             unique: true
         description:
             type: text
+        descriptionMasterGame:
+            type: text
         maxPlayer:
             type: integer
         isFinish:

@@ -153,6 +153,11 @@ class Player
     private $gender;
 
     /**
+     * @Groups({"post", "get_player", "put", "get", "get_list"})
+     */
+    private $group;
+
+    /**
      * @Groups({"get_player", "put", "get"})
      */
     private $objectItems;
@@ -468,5 +473,21 @@ class Player
     public function setToken(): void
     {
         $this->token = mt_rand();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGroup()
+    {
+        return $this->group;
+    }
+
+    /**
+     * @param mixed $group
+     */
+    public function setGroup($group): void
+    {
+        $this->group = $group;
     }
 }

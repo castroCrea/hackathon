@@ -18,7 +18,7 @@ use App\Api\Player\Validator\PlayerConstraint;
  *     "post"={
  *              "method"="POST",
  *              "normalization_context"={"groups"={"get"}},
- *              "denormalization_context"={"groups"={"post"}}
+ *              "denormalization_context"={"groups"={"post_monster"}}
  *      },
  *     "get"={
  *              "method"="GET",
@@ -32,8 +32,8 @@ use App\Api\Player\Validator\PlayerConstraint;
  *          },
  *          "put"={
  *              "method"="PUT",
- *              "normalization_context"={"groups"={"get_player"}},
- *              "denormalization_context"={"groups"={"put"}}
+ *              "normalization_context"={"groups"={"get"}},
+ *              "denormalization_context"={"groups"={"put_monster"}}
  *          }
  *     }
  * )
@@ -43,89 +43,99 @@ class Monster
 {
 
     /**
-     * @Groups({ "get", "get_list"})
+     * @Groups({ "get"})
      * @var int
      */
     private $id;
 
     /**
-     * @Groups({"post",  "get", "get_list"})
+     * @Groups({"post_monster",  "get"})
      * @var string
      */
     private $name;
 
     /**
-     * @Groups({ "put", "get", "get_list"})
+     * @Groups({ "put_monster", "get"})
      * @var int
      */
     private $level;
 
     /**
-     * @Groups({ "put", "get"})
+     * @Groups({ "put_monster", "get"})
      * @var int
      */
     private $experience;
 
     /**
-     * @Groups({ "put", "get"})
+     * @Groups({ "put_monster", "get"})
      * @var int
      */
     private $life;
 
     /**
-     * @Groups({ "put", "get"})
+     * @Groups({ "put_monster", "get"})
      * @var int
      */
     private $maneuverability;
 
     /**
-     * @Groups({ "put", "get"})
+     * @Groups({ "put_monster", "get"})
      * @var int
      */
     private $attackPower;
 
     /**
-     * @Groups({ "put", "get"})
+     * @Groups({ "put_monster", "get"})
      * @var int
      */
     private $defense;
 
     /**
-     * @Groups({ "put", "get"})
+     * @Groups({ "put_monster", "get"})
      * @var int
      */
     private $parade;
 
     /**
-     * @Groups({ "put", "get"})
+     * @Groups({ "put_monster", "get"})
      * @var int
      */
     private $gold;
 
     /**
-     * @Groups({"post", "get", "put", "get", "get_list"})
+     * @Groups({"post_monster", "get", "put_monster", "get"})
      * @var string
      */
     private $picture;
 
     /**
-     * @Groups({"post",  "put", "get", "get_list"})
+     * @Groups({"post_monster",  "put_monster", "get"})
      */
     private $race;
 
     /**
-     * @Groups({"post",  "put", "get", "get_list"})
+     * @Groups({"post_monster",  "put_monster", "get"})
      */
     private $job;
 
     /**
-     * @Groups({"post",  "put", "get", "get_list"})
+     * @Groups({"post_monster",  "put_monster", "get"})
      */
     private $gender;
     /**
-     * @Groups({"post",  "put", "get", "get_list"})
+     * @Groups({"post_monster",  "put_monster", "get"})
      */
     private $objectItems;
+    /**
+     * @Groups({"post_monster",  "put_monster", "get"})
+     * @var bool
+     */
+    private $isDead = false;
+    /**
+     * @Groups({"post_monster",  "put_monster", "get"})
+     * @var bool
+     */
+    private $isOut = false;
 
     /**
      * @return int
@@ -365,5 +375,37 @@ class Monster
     public function setObjectItems($objectItems): void
     {
         $this->objectItems = $objectItems;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDead(): bool
+    {
+        return $this->isDead;
+    }
+
+    /**
+     * @param bool $isDead
+     */
+    public function setIsDead(bool $isDead): void
+    {
+        $this->isDead = $isDead;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isOut(): bool
+    {
+        return $this->isOut;
+    }
+
+    /**
+     * @param bool $isOut
+     */
+    public function setIsOut(bool $isOut): void
+    {
+        $this->isOut = $isOut;
     }
 }

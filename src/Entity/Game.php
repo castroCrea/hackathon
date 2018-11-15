@@ -49,6 +49,7 @@ use App\Controller\GameStatusController;
  * )
  * )
  */
+//TODO : One request for the master game and on for players with description and descriptionMasterGame
 class Game
 {
     /**
@@ -67,6 +68,12 @@ class Game
      * @var string
      */
     private $description;
+
+    /**
+     * @Groups({"post", "get", "get_list"})
+     * @var string
+     */
+    private $descriptionMasterGame;
 
     /**
      * @Groups({"get", "get_list"})
@@ -146,6 +153,22 @@ class Game
     public function setDescription(string $description): void
     {
         $this->description = $description;
+    }
+
+    /**
+     * @return string
+     */
+    public function getDescriptionMasterGame(): string
+    {
+        return $this->descriptionMasterGame;
+    }
+
+    /**
+     * @param string $descriptionMasterGame
+     */
+    public function setDescriptionMasterGame(string $descriptionMasterGame): void
+    {
+        $this->descriptionMasterGame = $descriptionMasterGame;
     }
 
     /**

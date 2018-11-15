@@ -36,6 +36,10 @@ App\Entity\Monster:
         picture:
             type: text
             nullable: true
+        isDead:
+            type: boolean
+        isOut:
+            type: boolean
     manyToOne:
         race:
             targetEntity: App\Entity\Race

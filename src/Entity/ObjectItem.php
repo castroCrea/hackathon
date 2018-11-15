@@ -11,7 +11,12 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
  * @ApiResource(
- *     collectionOperations={"get"={
+ *     collectionOperations={"post"={
+ *              "method"="POST",
+ *              "normalization_context"={"groups"={"get"}},
+ *              "denormalization_context"={"groups"={"post_object"}}
+ *      },
+ *     "get"={
  *              "method"="GET",
  *              "normalization_context"={"groups"={"get"}}
  *      }
@@ -24,24 +29,25 @@ class ObjectItem
 {
 
     /**
+     * @Groups({"get"})
      * @var int
      */
     private $id;
 
     /**
-     * @Groups({"post", "get"})
+     * @Groups({"post_object", "get"})
      * @var string
      */
     private $name;
 
     /**
-     * @Groups({"post", "get"})
+     * @Groups({"post_object", "get"})
      * @var string
      */
     private $description;
 
     /**
-     * @Groups({"post", "get"})
+     * @Groups({"post_object", "get"})
      * @var int
      */
     private $value;
@@ -52,16 +58,18 @@ class ObjectItem
     private $players;
 
     /**
+     * @Groups({"post_object", "get"})
      * @var ObjectType
      */
     private $objectType;
     /**
+     * @Groups({"post_object", "get"})
      * @var BodyPart
      */
     private $bodyPart;
 
     /**
-     * @Groups({"get"})
+     * @Groups({"post_object", "get"})
      * @var array
      */
     private $diceTypes = [];
