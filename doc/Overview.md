@@ -173,9 +173,7 @@ POST `/api/rolls`
  
 ##Filters
  
-     creationDate[before]	
-     creationDate[strictly_before]
-     creationDate[after]
-     creationDate[strictly_after]
+     order[creationDate]
+     order[id]
      title
      isFinish

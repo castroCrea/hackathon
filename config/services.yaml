@@ -34,8 +34,8 @@ services:
 
 
     game.creationDate:
-        parent: 'api_platform.doctrine.orm.date_filter'
-        arguments: [ { creationDate: ~ } ]
+        parent: 'api_platform.doctrine.orm.order_filter'
+        arguments: [ { creationDate: ~, id: ~ } ]
         tags:  [ 'api_platform.filter' ]
         # The following are mandatory only if a _defaults section is defined
         # You may want to isolate filters in a dedicated file to avoid adding them

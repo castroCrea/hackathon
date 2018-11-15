@@ -8,7 +8,7 @@
 
 namespace App\Repository;
 
-use App\Domain\Game\Entity\Timer;
+use App\Entity\Timer;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 

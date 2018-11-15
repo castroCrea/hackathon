@@ -10,9 +10,9 @@ namespace App\Controller;
 
 
 use App\Api\User\Security\AuthorizeUser;
-use App\Domain\Game\Authorization\GameAuthorization;
-use App\Domain\Game\Entity\Game;
-use App\Domain\Game\Entity\Timer;
+use App\Service\Game\Authorization\GameAuthorization;
+use App\Entity\Game;
+use App\Entity\Timer;
 use App\Repository\GameRepository;
 use App\Repository\TimerRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

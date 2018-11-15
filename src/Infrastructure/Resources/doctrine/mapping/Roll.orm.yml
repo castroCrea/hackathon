@@ -1,0 +1,40 @@
+App\Entity\Roll:
+    type: entity
+    table: roll
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        creationDate:
+            type: datetime
+
+    manyToOne:
+        player:
+            targetEntity: App\Entity\Player
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                player_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    manyToMany:
+        dices:
+            targetEntity: App\Entity\Dice
+            cascade:
+              - 'persist'
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinTable:
+                name: roll_dices
+                joinColumns:
+                    -
+                        name: roll_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: dice_id
+                        referencedColumnName: id

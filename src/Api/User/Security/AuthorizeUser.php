@@ -9,7 +9,7 @@
 namespace App\Api\User\Security;
 
 
-use App\Domain\Game\Entity\Game;
+use App\Entity\Game;
 use App\Repository\PlayerRepository;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Translation\Exception\NotFoundResourceException;

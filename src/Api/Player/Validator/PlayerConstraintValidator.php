@@ -9,8 +9,9 @@
 namespace App\Api\Player\Validator;
 
 
-use App\Domain\Game\Entity\Game;
-use App\Domain\Player\Entity\Player;
+use App\Entity\Game;
+use App\Entity\ObjectItem;
+use App\Entity\Player;
 use App\Repository\PlayerRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -88,6 +89,19 @@ final class PlayerConstraintValidator extends ConstraintValidator
                 // check that there is not a user with the same name in the game
                 if ($playerWithSameName) {
                     $this->context->buildViolation($constraint->sameName)->addViolation();
+                }
+                // If an object is on twice the same body part
+                $objectItems = $player->getObjectItems();
+                if ($objectItems) {
+                    $objectInUse = [];
+                    /** @var ObjectItem $objectItem */
+                    foreach ($objectItems as $objectItem) {
+                        if (!isset($objectInUse[$objectItem->getBodyPart()->getId()])) {
+                            $objectInUse[$objectItem->getBodyPart()->getId()] = $objectItem->getName();
+                        } else {
+                            $this->context->buildViolation('object '.$objectItem->getName() . ' as the same body part than object '. $objectInUse[$objectItem->getBodyPart()->getId()])->addViolation();
+                        }
+                    }
                 }
             }
         }

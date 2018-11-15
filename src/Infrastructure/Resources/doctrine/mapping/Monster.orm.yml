@@ -1,0 +1,87 @@
+App\Entity\Monster:
+    type: entity
+    table: monster
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 255
+        level:
+            type: integer
+            nullable: true
+        experience:
+            type: integer
+            nullable: true
+        life:
+            type: integer
+            nullable: true
+        maneuverability:
+            type: integer
+            nullable: true
+        attackPower:
+            type: integer
+            nullable: true
+        defense:
+            type: integer
+            nullable: true
+        parade:
+            type: integer
+            nullable: true
+        gold:
+            type: integer
+            nullable: true
+        picture:
+            type: text
+            nullable: true
+    manyToOne:
+        race:
+            targetEntity: App\Entity\Race
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: players
+            joinColumns:
+                race_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        gender:
+          targetEntity: App\Entity\Gender
+          cascade: {  }
+          fetch: LAZY
+          mappedBy: null
+          inversedBy: null
+          joinColumns:
+            gender_id:
+              referencedColumnName: id
+          orphanRemoval: false
+        job:
+          targetEntity: App\Entity\Job
+          cascade: {  }
+          fetch: LAZY
+          mappedBy: null
+          inversedBy: null
+          joinColumns:
+            job_id:
+              referencedColumnName: id
+          orphanRemoval: false
+    manyToMany:
+        objectItems:
+            targetEntity: App\Entity\Monster
+            cascade:
+              - 'persist'
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinTable:
+                name: object_items_monster
+                joinColumns:
+                    -
+                        name: monster_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: object_item_id
+                        referencedColumnName: id

@@ -8,8 +8,8 @@
 
 namespace App\Repository;
 
-use App\Domain\Game\Entity\Game;
-use App\Domain\Player\Entity\Player;
+use App\Entity\Game;
+use App\Entity\Player;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 

@@ -5,9 +5,9 @@ namespace App\Api\Dice\Event;
 
 use ApiPlatform\Core\Api\IriConverterInterface;
 use ApiPlatform\Core\EventListener\EventPriorities;
-use App\Domain\Dice\Entity\Dice;
-use App\Domain\Dice\Entity\Roll;
-use App\Domain\Game\Authorization\GameAuthorization;
+use App\Entity\Dice;
+use App\Entity\Roll;
+use App\Service\Game\Authorization\GameAuthorization;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseForControllerResultEvent;
@@ -61,6 +61,8 @@ final class SetDiceEvent implements EventSubscriberInterface
     {
         $roll = $event->getControllerResult();
         $method = $event->getRequest()->getMethod();
+
+        //TODO: check if they are allow to throw those dices
 
         if (!$roll instanceof Roll || Request::METHOD_POST !== $method) {
             return;

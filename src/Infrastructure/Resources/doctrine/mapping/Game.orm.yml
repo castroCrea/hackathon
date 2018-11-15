@@ -1,0 +1,40 @@
+App\Entity\Game:
+    type: entity
+    table: game
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        title:
+            type: string
+            length: 255
+            unique: true
+        description:
+            type: text
+        maxPlayer:
+            type: integer
+        isFinish:
+            type: boolean
+        creationDate:
+            type: datetime
+    oneToOne:
+        masterPlayer:
+            targetEntity: App\Entity\Player
+            cascade:
+            - 'persist'
+            fetch: LAZY
+            mappedBy: gameMaster
+    oneToMany:
+        players:
+            targetEntity: App\Entity\Player
+            cascade:
+            - 'persist'
+            fetch: LAZY
+            mappedBy: game
+        timer:
+            targetEntity: App\Entity\Timer
+            cascade:
+            - 'persist'
+            fetch: LAZY
+            mappedBy: game

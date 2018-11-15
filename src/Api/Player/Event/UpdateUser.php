@@ -5,9 +5,9 @@ namespace App\Api\Player\Event;
 
 use ApiPlatform\Core\Api\IriConverterInterface;
 use ApiPlatform\Core\EventListener\EventPriorities;
-use App\Domain\Dice\Entity\Dice;
-use App\Domain\Dice\Entity\Roll;
-use App\Domain\Player\Entity\Player;
+use App\Entity\Dice;
+use App\Entity\Roll;
+use App\Entity\Player;
 use App\Repository\PlayerRepository;
 use Lexik\Bundle\JWTAuthenticationBundle\Exception\UserNotFoundException;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
