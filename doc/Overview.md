@@ -100,12 +100,10 @@ return
       "race": "/api/races/1",
       "job": "/api/jobs/1",
       "gender": "/api/genders/1",
-      "protections": [],
-      "weapons": [
-        "/api/weapons/1",
-        "/api/weapons/2"
-      ],
-      "objectItems": []
+      "objectItems": [
+        "/api/objectItems/1",
+        "/api/objectItems/2"
+      ]
     }
     
     The token should be set in the cookies
@@ -135,14 +133,6 @@ body
       "race": "/api/races/1",
       "job": "/api/jobs/1",
       "gender": "/api/genders/1",
-      "protections": [
-        "/api/protections/1",
-        "/api/protections/2"
-      ],
-      "weapons": [
-        "/api/weapons/1",
-        "/api/weapons/2"
-      ],
       "objectItems": [
         "/api/objectItems/1",
         "/api/objectItems/2"
