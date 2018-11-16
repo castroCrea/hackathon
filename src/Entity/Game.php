@@ -70,7 +70,7 @@ class Game
     private $description;
 
     /**
-     * @Groups({"post", "get", "get_list"})
+     * @Groups({"post", "get_master"})
      * @var string
      */
     private $descriptionMasterGame;
@@ -158,7 +158,7 @@ class Game
     /**
      * @return string
      */
-    public function getDescriptionMasterGame(): string
+    public function getDescriptionMasterGame(): ?string
     {
         return $this->descriptionMasterGame;
     }

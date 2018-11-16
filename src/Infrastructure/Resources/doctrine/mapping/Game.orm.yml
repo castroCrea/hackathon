@@ -14,6 +14,7 @@ App\Entity\Game:
             type: text
         descriptionMasterGame:
             type: text
+            nullable: true
         maxPlayer:
             type: integer
         isFinish:
