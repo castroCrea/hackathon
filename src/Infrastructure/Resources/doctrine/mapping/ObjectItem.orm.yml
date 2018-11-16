@@ -1,0 +1,58 @@
+App\Entity\ObjectItem:
+    type: entity
+    table: object_item
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 255
+        description:
+            type: text
+        value:
+            type: integer
+    manyToMany:
+        players:
+            targetEntity: App\Entity\Player
+            mappedBy: objectItems
+        diceTypes:
+            targetEntity: App\Entity\DiceType
+            cascade:
+              - 'persist'
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinTable:
+                name: object_item_dice_type
+                joinColumns:
+                    -
+                        name: object_item_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: dice_type_id
+                        referencedColumnName: id
+
+    manyToOne:
+        objectType:
+            targetEntity: App\Entity\ObjectType
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                object_type_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        bodyPart:
+            targetEntity: App\Entity\BodyPart
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                body_part_id:
+                    referencedColumnName: id
+            orphanRemoval: false

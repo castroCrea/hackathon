@@ -1,0 +1,21 @@
+App\Entity\Race:
+    type: entity
+    table: race
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        name:
+            type: string
+            length: 255
+        coeff:
+            type: integer
+            nullable: true
+    oneToMany:
+        players:
+            targetEntity: App\Entity\Player
+            cascade:
+              - 'persist'
+            fetch: LAZY
+            mappedBy: race

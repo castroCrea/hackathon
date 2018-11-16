@@ -72,9 +72,12 @@
         beforeRouteUpdate() {
             // this.$set(this.game, 'game', this.$route.params.gameId)
         },
+        mounted() {
+            this.user.game = '/api/games/'+this.$router.params.gameId;
+        },
         methods: {
-            createPlayer(e) {
-                this.axios.post('http://localhost:8000/api/games', this.player)
+            createPlayers(e) {
+                this.axios.post('http://localhost:8000/api/players', this.user)
                 .then((response) => {
                   this.$router.push({name: 'Home'})
                 })

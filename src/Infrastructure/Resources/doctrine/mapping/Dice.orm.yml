@@ -1,0 +1,25 @@
+App\Entity\Dice:
+    type: entity
+    table: dice
+    id:
+        id:
+            type: integer
+            generator: { strategy: AUTO }
+    fields:
+        creationDate:
+            type: datetime
+        value:
+            type: integer
+
+
+    manyToOne:
+        diceType:
+            targetEntity: App\Entity\DiceType
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                dice_type_id:
+                    referencedColumnName: id
+            orphanRemoval: false

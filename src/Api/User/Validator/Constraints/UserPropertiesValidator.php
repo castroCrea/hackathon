@@ -8,7 +8,7 @@
 
 namespace App\Api\User\Validator\Constraints;
 
-use App\Domain\User\Entity\User;
+use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
