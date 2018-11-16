@@ -22,7 +22,7 @@
     <button type="submit" v-on:click.prevent="createPlayers()" class="btn btn-primary">Valider</button>
   </form>
 </template>
-
+<!--TODO: Create Player Form -->
 <script>
 
     export default {
