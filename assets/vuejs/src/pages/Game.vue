@@ -10,11 +10,6 @@
         name: "Game",
         data(){
             return {
-                user: {
-                    title: '',
-                    description: '',
-                    maxPlayer: ''
-                }
             }
         },
         methods: {
