@@ -8,13 +8,23 @@
 
 namespace App\Repository;
 
-use App\Domain\Game\Entity\Game;
-use App\Domain\Player\Entity\Player;
+use App\Entity\Game;
+use App\Entity\Player;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
+/**
+ * Class PlayerRepository
+ *
+ * @package App\Repository
+ */
 class PlayerRepository extends ServiceEntityRepository
 {
+    /**
+     * PlayerRepository constructor.
+     *
+     * @param RegistryInterface $registry
+     */
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Player::class);
@@ -60,5 +70,13 @@ class PlayerRepository extends ServiceEntityRepository
         }
 
         return $qb->getQuery()->getResult();
+    }
+
+    /**
+     * @param Player $player
+     */
+    public function save(Player $player){
+        $this->_em->persist($player);
+        $this->_em->flush();
     }
 }

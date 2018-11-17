@@ -9,7 +9,7 @@
 namespace App\Api\Game\Validator;
 
 
-use App\Domain\Game\Entity\Game;
+use App\Entity\Game;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
