@@ -9,6 +9,7 @@
   "dependencies": {
     "vue": "^2.5.17",
     "vue-base64-file-upload": "^1.0.4",
+    "vue-bootstrap-typeahead": "^0.2.6",
     "vuelidate": "^0.7.4"
   },
   "devDependencies": {

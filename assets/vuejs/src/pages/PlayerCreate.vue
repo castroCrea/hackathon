@@ -8,60 +8,74 @@
                 @submit.prevent="createPlayer"
           >
             <div class="form-group">
-              <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="playerGender-m" name="gender" value="m" v-model="$v.gender.$model" class="custom-control-input"
-                       :class="{'is-invalid' : $v.gender.$error }"
-                >
-                <label class="custom-control-label" for="playerGender-m">Homme</label>
-              </div>
-              <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="playerGender-f" name="gender" value="f" v-model="$v.gender.$model" class="custom-control-input"
-                       :class="{'is-invalid' : $v.gender.$error }"
-                >
-                <label class="custom-control-label" for="playerGender-f">Femme</label>
-              </div>
-              <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="playerGender-none" name="gender" value="none" v-model="$v.gender.$model" class="custom-control-input"
-                       :class="{'is-invalid' : $v.gender.$error }"
-                >
-                <label class="custom-control-label" for="playerGender-none">¯\_(ツ)_/¯</label>
-              </div>
+              <label>Genre</label>
+              <vue-bootstrap-typeahead
+                v-if="$v.player.gender.$error"
+                input-class="is-invalid"
+                v-model="player.gender"
+                :serializer="s => s.name"
+                placeholder="Choisir un genre"
+                :data="genders"
+                @hit="player.gender = $event['@id']"
+              />
+              <vue-bootstrap-typeahead
+                v-else
+                v-model="player.gender"
+                :serializer="s => s.name"
+                placeholder="Choisir un genre"
+                :data="genders"
+                @hit="player.gender = $event['@id']"
+              />
             </div>
             <div class="form-group">
               <label for="playerName">Nom</label>
-              <input type="text" id="playerName" name="name" v-model="$v.name.$model" class="form-control" placeholder="Nom"
-                     :class="{'is-invalid' : $v.name.$error }"
+              <input type="text" id="playerName" name="name" v-model="$v.player.name.$model" class="form-control" placeholder="Nom"
+                     :class="{'is-invalid' : $v.player.name.$error }"
               >
             </div>
             <div class="form-group">
               <label for="playerPicture">Photo</label>
               <div class="custom-file">
                 <input type="file" class="custom-file-input" id="playerPicture" @change="imageToBase64String" name="picture" aria-describedby="Photo"
-                       :class="{'is-invalid' : !this.picture }"
+                       :class="{'is-invalid' : (!this.player.picture && this.player.picture !== null) }"
                  >
                 <label class="custom-file-label" for="playerPicture">Inserer une image</label>
               </div>
-              <img :src="picture" class="my-4 d-block border-primary border p-3" alt="" height="250" v-if="picture.trim()">
+              <img :src="player.picture" class="my-4 d-block border-primary border p-3" alt="" height="250" v-if="player.picture">
 
             </div>
             <div class="form-group">
               <label for="playerRace">Race</label>
-              <input type="text" id="playerRace" class="form-control" name="player.race" v-model="$v.race.$model" placeholder="Race"
-                     :class="{'is-invalid' : $v.race.$error }"
+              <input type="text" id="playerRace" class="form-control" name="player.race" v-model="$v.player.race.$model" placeholder="Race"
+                     :class="{'is-invalid' : $v.player.race.$error }"
               >
             </div>
             <div class="form-group">
-              <label for="playerJob">Metier</label>
-              <input type="text" id="playerJob" class="form-control" name="job" v-model="$v.job.$model" placeholder="Metier"
-                     :class="{'is-invalid' : $v.job.$error }"
-              >
+              <label for="playerJob">Métier</label>
+              <vue-bootstrap-typeahead
+                v-if="$v.player.job.$error"
+                input-class="is-invalid"
+                v-model="$v.player.job.$model"
+                :serializer="s => s.name"
+                placeholder="Choisir un metier"
+                :data="jobs"
+                @hit="player.job = $event['@id']"
+              />
+              <vue-bootstrap-typeahead
+                v-else
+                v-model="$v.player.job.$model"
+                :serializer="s => s.name"
+                placeholder="Choisir un metier"
+                :data="jobs"
+                @hit="player.job = $event['@id']"
+              />
             </div>
             <div class="custom-control custom-checkbox custom-control-inline form-group">
               <input type="checkbox" id="playerIsGameMaster" name="playerGameMaster" value="false" class="custom-control-input">
               <label class="custom-control-label" for="playerIsGameMaster">Est il le game master ? <strong class="text-warning"><i>Pas utilisé pour le moment</i></strong></label>
             </div>
             <div class="d-flex flex-row-reverse">
-              <button type="submit" class="btn btn-primary ml-auto" :disabled="submitStatus === 'PENDING'">Enregistrer</button>
+              <button type="submit" class="btn btn-primary ml-auto" :disabled="player.submitStatus === 'PENDING'">Enregistrer</button>
             </div>
           </form>
         </div>
@@ -73,42 +87,78 @@
 <script>
 
     import { required } from 'vuelidate/lib/validators'
+    import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
+
 
     export default {
         name: "PlayerCreate",
+        components: {
+            VueBootstrapTypeahead
+        },
         data(){
             return {
-                game: "/api/game/",
-                gender: "/api/gender/",
-                name: "",
-                picture: ' ',
-                race: "/api/race/",
-                job: "/api/job/",
-                gameMaster: "false",
-                submitStatus: null
+                player: {
+                    game: "/api/games/",
+                    gender: "",
+                    name: "",
+                    picture: null,
+                    race: "/api/races/1",
+                    job: "",
+                    gameMaster: "false",
+                    submitStatus: null
+                },
+                genders: [],
+                races: [],
+                jobs: []
             }
         },
         created() {
-            this.game = this.game + this.$route.params.gameId
+            this.player.game = this.player.game + this.$route.params.gameId
+            this.getGenders()
+            // this.getRaces()
+            this.getJobs()
         },
         methods: {
             createPlayer(e) {
                 this.$v.$touch()
 
+                if (!this.player.picture) {
+                    this.player.picture = false
+                    return false
+                }
+
                 if (this.$v.$invalid) {
-                    this.submitStatus = 'ERROR'
+                    this.player.submitStatus = 'ERROR'
                     return false
                 } else {
 
-                  this.submitStatus = 'PENDING'
-                  this.axios.post('http://localhost:8000/api/players', this.$data)
+                  this.player.submitStatus = 'PENDING'
+                  this.axios.post('http://localhost:8000/api/players', this.player)
                       .then((response) => {
-                          this.submitStatus = 'SUCCESS'
+                          this.player.submitStatus = 'SUCCESS'
                           this.$router.push({name: 'Home'})
                           console.log(response);
                       })
                 }
 
+            },
+            getGenders() {
+                this.axios.get('http://localhost:8000/api/genders')
+                  .then((response) => {
+                      this.genders = response.data["hydra:member"]
+                  })
+            },
+            getRaces() {
+                this.axios.get('http://localhost:8000/api/races')
+                  .then((response) => {
+                      this.races = response.data["hydra:member"]
+                  })
+            },
+            getJobs() {
+                this.axios.get('http://localhost:8000/api/jobs')
+                  .then((response) => {
+                      this.jobs = response.data["hydra:member"]
+                  })
             },
             imageToBase64String(e) {
                 const input = event.target;
@@ -116,23 +166,25 @@
                     var reader = new FileReader();
                     reader.readAsDataURL(input.files[0])
                     reader.onload = (e) => {
-                        this.picture = e.target.result
+                        this.player.picture = e.target.result
                     }
                 }
             },
         },
         validations: {
-            gender: {
-                required
-            },
-            name: {
-                required
-            },
-            race: {
-                required
-            },
-            job: {
-                required
+            player: {
+                gender: {
+                    required
+                },
+                name: {
+                    required
+                },
+                race: {
+                    required
+                },
+                job: {
+                    required
+                }
             }
         }
     }
