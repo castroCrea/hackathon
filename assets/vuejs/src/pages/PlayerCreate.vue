@@ -46,9 +46,23 @@
             </div>
             <div class="form-group">
               <label for="playerRace">Race</label>
-              <input type="text" id="playerRace" class="form-control" name="player.race" v-model="$v.player.race.$model" placeholder="Race"
-                     :class="{'is-invalid' : $v.player.race.$error }"
-              >
+              <vue-bootstrap-typeahead
+                v-if="$v.player.race.$error"
+                input-class="is-invalid"
+                v-model="$v.player.race.$model"
+                :serializer="s => s.name"
+                placeholder="Choisir un metier"
+                :data="races"
+                @hit="player.job = $event['@id']"
+              />
+              <vue-bootstrap-typeahead
+                v-else
+                v-model="$v.player.race.$model"
+                :serializer="s => s.name"
+                placeholder="Choisir un metier"
+                :data="races"
+                @hit="player.race = $event['@id']"
+              />
             </div>
             <div class="form-group">
               <label for="playerJob">Métier</label>
@@ -69,10 +83,6 @@
                 :data="jobs"
                 @hit="player.job = $event['@id']"
               />
-            </div>
-            <div class="custom-control custom-checkbox custom-control-inline form-group">
-              <input type="checkbox" id="playerIsGameMaster" name="playerGameMaster" value="false" class="custom-control-input">
-              <label class="custom-control-label" for="playerIsGameMaster">Est il le game master ? <strong class="text-warning"><i>Pas utilisé pour le moment</i></strong></label>
             </div>
             <div class="d-flex flex-row-reverse">
               <button type="submit" class="btn btn-primary ml-auto" :disabled="player.submitStatus === 'PENDING'">Enregistrer</button>
@@ -102,9 +112,8 @@
                     gender: "",
                     name: "",
                     picture: null,
-                    race: "/api/races/1",
+                    race: "",
                     job: "",
-                    gameMaster: "false",
                     submitStatus: null
                 },
                 genders: [],
@@ -115,7 +124,7 @@
         created() {
             this.player.game = this.player.game + this.$route.params.gameId
             this.getGenders()
-            // this.getRaces()
+            this.getRaces()
             this.getJobs()
         },
         methods: {
@@ -130,16 +139,21 @@
                 if (this.$v.$invalid) {
                     this.player.submitStatus = 'ERROR'
                     return false
-                } else {
-
-                  this.player.submitStatus = 'PENDING'
-                  this.axios.post('http://localhost:8000/api/players', this.player)
-                      .then((response) => {
-                          this.player.submitStatus = 'SUCCESS'
-                          this.$router.push({name: 'Home'})
-                          console.log(response);
-                      })
                 }
+
+                this.player.submitStatus = 'PENDING'
+                const {submitStatus, ...payload} = this.player
+                this.axios.post('http://localhost:8000/api/players', payload)
+                    .then((response) => {
+                        this.player.submitStatus = 'SUCCESS'
+                        this.$router.push({name: 'Home'})
+                        console.log(response);
+                    })
+                    .catch((error) => {
+                        this.player.submitStatus = 'ERROR'
+                        console.log(error)
+                    })
+
 
             },
             getGenders() {
