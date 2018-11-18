@@ -24,10 +24,10 @@ const routes = [
     },
     {
         path: '/game',
-        name: 'Game',
         component: Game,
         children: [
             {
+                name: 'Game',
                 path: '',
                 component: GameList
             },

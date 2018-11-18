@@ -26,9 +26,11 @@
             <div class="form-group">
               <label for="playerPicture">Photo</label>
               <div class="custom-file">
-                <input type="file" class="custom-file-input" id="playerPicture" @change="imageToBase64String($event)" name="picture" aria-describedby="Photo">
+                <input type="file" class="custom-file-input" id="playerPicture" @change="imageToBase64String" name="picture" aria-describedby="Photo">
                 <label class="custom-file-label" for="playerPicture">Inserer une image</label>
               </div>
+              <img :src="picture" class="my-4 d-block border-primary border p-3" alt="" height="250" v-if="picture">
+
             </div>
             <div class="form-group">
               <label for="playerRace">Race</label>
@@ -54,26 +56,22 @@
 
 <script>
 
-    const image2base64 = require('image-to-base64');
 
     export default {
         name: "PlayerCreate",
         data(){
             return {
                 name: "",
-                picture: "",
-                game: "",
+                picture: false,
+                game: "0",
                 gameMaster: "false",
                 race: "",
                 job: "",
                 gender: ""
             }
         },
-        beforeRouteUpdate() {
-            // this.$set(this.game, 'game', this.$route.params.gameId)
-        },
-        mounted() {
-            this.user.game = '/api/games/'+this.$router.params.gameId;
+        created() {
+            this.game = '/api/games/' + this.$route.params.gameId
         },
         methods: {
             createPlayers(e) {
@@ -83,18 +81,20 @@
                 })
             },
             imageToBase64String(e) {
-                console.log(e)
-                // image2base64("path/to/file.jpg") // you can also to use url
-                //     .then(
-                //         (response) => {
-                //             console.log(response); //cGF0aC90by9maWxlLmpwZw==
-                //         }
-                //     )
-                //     .catch(
-                //         (error) => {
-                //             console.log(error); //Exepection error....
-                //         }
-                //     )
+                var input = event.target;
+                // Ensure that you have a file before attempting to read it
+                if (input.files && input.files[0]) {
+                    // create a new FileReader to read this image and convert to base64 format
+                    var reader = new FileReader();
+                    // Define a callback function to run, when FileReader finishes its job
+                    reader.onload = (e) => {
+                        // Note: arrow function used here, so that "this.imageData" refers to the imageData of Vue component
+                        // Read image as base64 and set to imageData
+                        this.picture = e.target.result;
+                    }
+                    // Start the reader job - read file as a data url (base64 format)
+                    reader.readAsDataURL(input.files[0]);
+                }
             }
         }
     }
