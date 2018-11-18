@@ -1,13 +1,10 @@
-import Vue from 'vue'
 import VueRouter from 'vue-router'
-
 import Game from '../pages/Game'
 import GameDescription from '../pages/GameDescription'
 import GameCreate from '../pages/GameCreate'
 import GameList from '../pages/GameList'
 import PlayerCreate from '../pages/PlayerCreate'
 
-Vue.use(VueRouter)
 
 const routes = [
     {
