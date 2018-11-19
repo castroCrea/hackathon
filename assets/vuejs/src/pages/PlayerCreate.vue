@@ -4,113 +4,201 @@
       <div class="row">
         <div class="col">
           <h2>Creer un joueur</h2>
-          <form action="post" enctype="multipart/form-data" class="mb-3">
+          <form action="post" enctype="multipart/form-data" class="mb-3"
+                @submit.prevent="createPlayer"
+          >
             <div class="form-group">
-              <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="playerGender-m" name="playerGender" value="m" v-model="gender" class="custom-control-input">
-                <label class="custom-control-label" for="playerGender-m">Homme</label>
-              </div>
-              <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="playerGender-f" name="playerGender" value="f" v-model="gender" class="custom-control-input">
-                <label class="custom-control-label" for="playerGender-f">Femme</label>
-              </div>
-              <div class="custom-control custom-radio custom-control-inline">
-                <input type="radio" id="playerGender-none" name="playerGender" value="none" v-model="gender" class="custom-control-input">
-                <label class="custom-control-label" for="playerGender-none">¯\_(ツ)_/¯</label>
-              </div>
+              <label>Genre</label>
+              <vue-bootstrap-typeahead
+                v-if="$v.player.gender.$error"
+                input-class="is-invalid"
+                v-model="player.gender"
+                :serializer="s => s.name"
+                placeholder="Choisir un genre"
+                :data="genders"
+                @hit="player.gender = $event['@id']"
+              />
+              <vue-bootstrap-typeahead
+                v-else
+                v-model="player.gender"
+                :serializer="s => s.name"
+                placeholder="Choisir un genre"
+                :data="genders"
+                @hit="player.gender = $event['@id']"
+              />
             </div>
             <div class="form-group">
               <label for="playerName">Nom</label>
-              <input type="text" id="playerName" name="name" v-model="name" class="form-control" placeholder="Nom">
+              <input type="text" id="playerName" name="name" v-model="$v.player.name.$model" class="form-control" placeholder="Nom"
+                     :class="{'is-invalid' : $v.player.name.$error }"
+              >
             </div>
             <div class="form-group">
               <label for="playerPicture">Photo</label>
               <div class="custom-file">
-                <input type="file" class="custom-file-input" id="playerPicture" @change="imageToBase64String($event)" name="picture" aria-describedby="Photo">
+                <input type="file" class="custom-file-input" id="playerPicture" @change="imageToBase64String" name="picture" aria-describedby="Photo"
+                       :class="{'is-invalid' : (!this.player.picture && this.player.picture !== null) }"
+                 >
                 <label class="custom-file-label" for="playerPicture">Inserer une image</label>
               </div>
+              <img :src="player.picture" class="my-4 d-block border-primary border p-3" alt="" height="250" v-if="player.picture">
+
             </div>
             <div class="form-group">
               <label for="playerRace">Race</label>
-              <input type="text" id="playerRace" class="form-control" name="player.race" v-model="race" placeholder="Race">
+              <vue-bootstrap-typeahead
+                v-if="$v.player.race.$error"
+                input-class="is-invalid"
+                v-model="$v.player.race.$model"
+                :serializer="s => s.name"
+                placeholder="Choisir un metier"
+                :data="races"
+                @hit="player.job = $event['@id']"
+              />
+              <vue-bootstrap-typeahead
+                v-else
+                v-model="$v.player.race.$model"
+                :serializer="s => s.name"
+                placeholder="Choisir un metier"
+                :data="races"
+                @hit="player.race = $event['@id']"
+              />
             </div>
             <div class="form-group">
-              <label for="playerJob">Metier</label>
-              <input type="text" id="playerJob" class="form-control" name="job" v-model="job" placeholder="Metier">
-            </div>
-            <div class="custom-control custom-checkbox custom-control-inline form-group">
-              <input type="checkbox" id="playerIsGameMaster" name="playerGameMaster" value="false" class="custom-control-input">
-              <label class="custom-control-label" for="playerIsGameMaster">Est il le game master ? <strong class="text-warning"><i>Pas utilisé pour le moment</i></strong></label>
+              <label for="playerJob">Métier</label>
+              <vue-bootstrap-typeahead
+                v-if="$v.player.job.$error"
+                input-class="is-invalid"
+                v-model="$v.player.job.$model"
+                :serializer="s => s.name"
+                placeholder="Choisir un metier"
+                :data="jobs"
+                @hit="player.job = $event['@id']"
+              />
+              <vue-bootstrap-typeahead
+                v-else
+                v-model="$v.player.job.$model"
+                :serializer="s => s.name"
+                placeholder="Choisir un metier"
+                :data="jobs"
+                @hit="player.job = $event['@id']"
+              />
             </div>
             <div class="d-flex flex-row-reverse">
-              <button type="submit" class="btn btn-primary ml-auto">Enregistrer</button>
+              <button type="submit" class="btn btn-primary ml-auto" :disabled="player.submitStatus === 'PENDING'">Enregistrer</button>
             </div>
           </form>
         </div>
       </div>
     </div>
   </div>
-  <form>
-
-    <div class="form-group">
-      <label for="title">Nom</label>
-      <input type="text" class="form-control" id="title" v-model="user.title" name="title" placeholder="Kayviiiine">
-    </div>
-
-    <div class="form-group">
-      <label for="description">Description</label>
-      <textarea class="form-control" id="description" v-model="user.description" name="description"></textarea>
-    </div>
-
-    <div class="form-group">
-      <label for="maxPlayer">Nombre maximum de joueurs</label>
-      <input type="number" class="form-control" id="maxPlayer" name="maxPlayer" v-model.number="user.maxPlayer" placeholder="100">
-    </div>
-
-    <button type="submit" v-on:click.prevent="createPlayers()" class="btn btn-primary">Valider</button>
-  </form>
 </template>
-<!--TODO: Create Player Form -->
+
 <script>
 
-    const image2base64 = require('image-to-base64');
+    import { required } from 'vuelidate/lib/validators'
+    import VueBootstrapTypeahead from 'vue-bootstrap-typeahead'
+
 
     export default {
         name: "PlayerCreate",
+        components: {
+            VueBootstrapTypeahead
+        },
         data(){
             return {
-                name: "",
-                picture: "",
-                game: "",
-                gameMaster: "false",
-                race: "",
-                job: "",
-                gender: ""
+                player: {
+                    game: "/api/games/",
+                    gender: "",
+                    name: "",
+                    picture: null,
+                    race: "",
+                    job: "",
+                    submitStatus: null
+                },
+                genders: [],
+                races: [],
+                jobs: []
             }
         },
-        beforeRouteUpdate() {
-            // this.$set(this.game, 'game', this.$route.params.gameId)
+        created() {
+            this.player.game = this.player.game + this.$route.params.gameId
+            this.getGenders()
+            this.getRaces()
+            this.getJobs()
         },
         methods: {
             createPlayer(e) {
-                this.axios.post('http://localhost:8000/api/games', this.player)
-                .then((response) => {
-                  this.$router.push({name: 'Home'})
-                })
+                this.$v.$touch()
+
+                if (!this.player.picture) {
+                    this.player.picture = false
+                    return false
+                }
+
+                if (this.$v.$invalid) {
+                    this.player.submitStatus = 'ERROR'
+                    return false
+                }
+
+                this.player.submitStatus = 'PENDING'
+                const {submitStatus, ...payload} = this.player
+                this.axios.post('http://localhost:8000/api/players', payload)
+                    .then((response) => {
+                        this.player.submitStatus = 'SUCCESS'
+                        this.$router.push({name: 'Home'})
+                        console.log(response);
+                    })
+                    .catch((error) => {
+                        this.player.submitStatus = 'ERROR'
+                        console.log(error)
+                    })
+
+
+            },
+            getGenders() {
+                this.axios.get('http://localhost:8000/api/genders')
+                  .then((response) => {
+                      this.genders = response.data["hydra:member"]
+                  })
+            },
+            getRaces() {
+                this.axios.get('http://localhost:8000/api/races')
+                  .then((response) => {
+                      this.races = response.data["hydra:member"]
+                  })
+            },
+            getJobs() {
+                this.axios.get('http://localhost:8000/api/jobs')
+                  .then((response) => {
+                      this.jobs = response.data["hydra:member"]
+                  })
             },
             imageToBase64String(e) {
-                console.log(e)
-                // image2base64("path/to/file.jpg") // you can also to use url
-                //     .then(
-                //         (response) => {
-                //             console.log(response); //cGF0aC90by9maWxlLmpwZw==
-                //         }
-                //     )
-                //     .catch(
-                //         (error) => {
-                //             console.log(error); //Exepection error....
-                //         }
-                //     )
+                const input = event.target;
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.readAsDataURL(input.files[0])
+                    reader.onload = (e) => {
+                        this.player.picture = e.target.result
+                    }
+                }
+            },
+        },
+        validations: {
+            player: {
+                gender: {
+                    required
+                },
+                name: {
+                    required
+                },
+                race: {
+                    required
+                },
+                job: {
+                    required
+                }
             }
         }
     }
