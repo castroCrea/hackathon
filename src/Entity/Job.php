@@ -33,7 +33,6 @@ class Job
     private $name;
 
     /**
-     * @Groups({"get"})
      */
     private $players;
 

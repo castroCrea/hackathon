@@ -39,7 +39,6 @@ class Race
     private $coeff;
 
     /**
-     * @Groups({"get"})
      * @ORM\OneToMany(targetEntity="App\Entity\Player", mappedBy="race")
      */
     private $players;

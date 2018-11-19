@@ -22,7 +22,7 @@ use App\Api\Player\Validator\PlayerConstraint;
  *      },
  *     "get"={
  *              "method"="GET",
- *              "normalization_context"={"groups"={"get"}}
+ *              "normalization_context"={"groups"={"get_player_list"}}
  *      }
  *     },
  *     itemOperations={
@@ -49,67 +49,67 @@ class Player
 {
 
     /**
-     * @Groups({"get_player", "get", "get_list"})
+     * @Groups({"get_player", "get", "get_list", "get_player_list"})
      * @var int
      */
     private $id;
 
     /**
-     * @Groups({"post", "get_player", "get", "get_list"})
+     * @Groups({"post", "get_player", "get", "get_list", "get_player_list"})
      * @var string
      */
     private $name;
 
     /**
-     * @Groups({"get_player", "put", "get", "get_list"})
+     * @Groups({"get_player", "put", "get", "get_list", "get_player_list"})
      * @var int
      */
     private $level;
 
     /**
-     * @Groups({"get_player", "put", "get"})
+     * @Groups({"get_player", "put", "get", "get_player_list"})
      * @var int
      */
     private $experience;
 
     /**
-     * @Groups({"get_player", "put", "get"})
+     * @Groups({"get_player", "put", "get", "get_player_list"})
      * @var int
      */
     private $life;
 
     /**
-     * @Groups({"get_player", "put", "get"})
+     * @Groups({"get_player", "put", "get", "get_player_list"})
      * @var int
      */
     private $maneuverability;
 
     /**
-     * @Groups({"get_player", "put", "get"})
+     * @Groups({"get_player", "put", "get", "get_player_list"})
      * @var int
      */
     private $attackPower;
 
     /**
-     * @Groups({"get_player", "put", "get"})
+     * @Groups({"get_player", "put", "get", "get_player_list"})
      * @var int
      */
     private $defense;
 
     /**
-     * @Groups({"get_player", "put", "get"})
+     * @Groups({"get_player", "put", "get", "get_player_list"})
      * @var int
      */
     private $parade;
 
     /**
-     * @Groups({"get_player", "put", "get"})
+     * @Groups({"get_player", "put", "get", "get_player_list"})
      * @var int
      */
     private $gold;
 
     /**
-     * @Groups({"post", "get", "put", "get", "get_list"})
+     * @Groups({"post", "get", "put", "get", "get_list", "get_player_list"})
      * @var string
      */
     private $picture;
@@ -120,45 +120,45 @@ class Player
      */
     private $token;
     /**
-     * @Groups({"post", "get_player", "get"})
+     * @Groups({"post", "get_player", "get", "get_player_list"})
      * @var Game
      */
     private $game;
 
     /**
-     * @Groups({"post", "get_player", "get"})
+     * @Groups({"post", "get_player", "get", "get_player_list"})
      * @var Game
      */
     private $gameMaster;
 
     /**
-     * @Groups({"get_player", "put", "get", "put_in_use", "get_list"})
+     * @Groups({"get_player", "put", "get", "put_in_use", "get_list", "get_player_list"})
      * @var bool
      */
     private $inUse = true;
 
     /**
-     * @Groups({"post", "get_player", "put", "get", "get_list"})
+     * @Groups({"post", "get_player", "put", "get", "get_list", "get_player_list"})
      */
     private $race;
 
     /**
-     * @Groups({"post", "get_player", "put", "get", "get_list"})
+     * @Groups({"post", "get_player", "put", "get", "get_list", "get_player_list"})
      */
     private $job;
 
     /**
-     * @Groups({"post", "get_player", "put", "get", "get_list"})
+     * @Groups({"post", "get_player", "put", "get", "get_list", "get_player_list"})
      */
     private $gender;
 
     /**
-     * @Groups({"post", "get_player", "put", "get", "get_list"})
+     * @Groups({"post", "get_player", "put", "get", "get_list", "get_player_list"})
      */
     private $group;
 
     /**
-     * @Groups({"get_player", "put", "get"})
+     * @Groups({"get_player", "put", "get", "get_player_list"})
      */
     private $objectItems;
 

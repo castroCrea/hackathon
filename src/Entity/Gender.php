@@ -33,7 +33,6 @@ class Gender
     private $name;
 
     /**
-     * @Groups({"get"})
      */
     private $players;
 
