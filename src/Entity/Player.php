@@ -109,7 +109,7 @@ class Player
     private $gold;
 
     /**
-     * @Groups({"post", "get", "put_player", "get_list", "get_player_list"})
+     * @Groups({"post_player", "get_player", "put_player", "get_list", "get_player_list"})
      * @var string
      */
     private $picture;
