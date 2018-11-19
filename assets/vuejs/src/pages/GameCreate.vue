@@ -5,29 +5,38 @@
 
       <div class="form-group">
         <label for="title">Nom</label>
-        <input type="text" class="form-control" id="title" v-model="$v.user.title.$model" name="title" placeholder="Kayviiiine"
-         :class="{'is-invalid' : $v.user.title.$error }"
+        <input type="text" class="form-control" id="title" v-model="$v.game.title.$model" name="title" placeholder="Kayviiiine"
+         :class="{'is-invalid' : $v.game.title.$error }"
         >
       </div>
 
       <div class="form-group">
         <label for="description">Description</label>
-        <textarea class="form-control" id="description" v-model="$v.user.description.$model" name="description"
-         :class="{'is-invalid' : $v.user.description.$error }"
+        <textarea class="form-control" id="description" v-model="$v.game.description.$model" name="description"
+         :class="{'is-invalid' : $v.game.description.$error }"
         ></textarea>
       </div>
 
       <div class="form-group">
         <label for="descriptionMasterGame">Description Game master</label>
-        <textarea class="form-control" id="descriptionMasterGame" v-model="$v.user.descriptionMasterGame.$model" name="description game master"
-         :class="{'is-invalid' : $v.user.descriptionMasterGame.$error }"
+        <textarea class="form-control" id="descriptionMasterGame" v-model="$v.game.descriptionMasterGame.$model" name="description game master"
+         :class="{'is-invalid' : $v.game.descriptionMasterGame.$error }"
         ></textarea>
       </div>
 
       <div class="form-group">
         <label for="maxPlayer">Nombre maximum de joueurs</label>
-        <input type="number" class="form-control" id="maxPlayer" name="maxPlayer" v-model.number="$v.user.maxPlayer.$model" placeholder="100"
-         :class="{'is-invalid' : $v.user.maxPlayer.$error }"
+        <input type="number" class="form-control" id="maxPlayer" name="maxPlayer" v-model.number="$v.game.maxPlayer.$model" placeholder="100"
+         :class="{'is-invalid' : $v.game.maxPlayer.$error }"
+        >
+      </div>
+
+      <h3>Game Master Name</h3>
+
+      <div class="form-group">
+        <label for="gameMaster">Name Game Master</label>
+        <input type="text" class="form-control" id="gameMaster" name="gameMaster" v-model.number="$v.gameMaster.name.$model"
+               :class="{'is-invalid' : $v.gameMaster.name.$error }"
         >
       </div>
 
@@ -40,16 +49,24 @@
 <script>
 
     import { required } from 'vuelidate/lib/validators'
+    import Vue from 'vue'
+    import VueCookies from 'vue-cookies'
+    Vue.use(VueCookies);
 
     export default {
         name: "GameCreate",
         data(){
             return {
-                user: {
+                game: {
                     title: '',
                     description: '',
                     descriptionMasterGame: '',
                     maxPlayer: ''
+                },
+                gameMaster: {
+                    name: '',
+                    inUse: true,
+                    game: ''
                 },
                 submitStatus: null
             }
@@ -60,25 +77,31 @@
                 this.$v.$touch()
 
                 if (this.$v.$invalid) {
-                    this.submitStatus = 'ERROR'
+                    this.submitStatus = 'ERROR';
                     return false
                 }
-
-                this.submitStatus = 'PENDING'
-                this.axios.post('http://localhost:8000/api/games', this.user)
+                // CREATE GAME
+                this.submitStatus = 'PENDING';
+                this.axios.post('http://localhost:8000/api/games', this.game)
                 .then((response) => {
-                  this.submitStatus = 'SUCCESS'
+                    // CREATE GAME MASTER
+                    this.gameMaster.game = response.data['@id'];
+                    this.axios.post('http://localhost:8000/api/players', this.gameMaster)
+                        .then((response) => {
+                            this.$cookies.set('token', response.data.token);
+                        });
+                  this.submitStatus = 'SUCCESS';
                   this.$router.push({name: 'Home'})
                 })
                 .catch((error) => {
-                    this.submitStatus = 'ERROR'
+                    this.submitStatus = 'ERROR';
                     console.log(error)
                 })
             }
         },
 
         validations: {
-            user: {
+            game: {
                 title: {
                     required
                 },
@@ -91,6 +114,9 @@
                 maxPlayer: {
                     required
                 }
+            },
+            gameMaster: {
+                name: {}
             }
         }
     }
