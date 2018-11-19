@@ -18,26 +18,26 @@
       </div>
 
       <div class="form-group">
-        <label for="descriptionMasterGame">Description Game master</label>
-        <textarea class="form-control" id="descriptionMasterGame" v-model="$v.game.descriptionMasterGame.$model" name="description game master"
-         :class="{'is-invalid' : $v.game.descriptionMasterGame.$error }"
-        ></textarea>
-      </div>
-
-      <div class="form-group">
         <label for="maxPlayer">Nombre maximum de joueurs</label>
         <input type="number" class="form-control" id="maxPlayer" name="maxPlayer" v-model.number="$v.game.maxPlayer.$model" placeholder="100"
          :class="{'is-invalid' : $v.game.maxPlayer.$error }"
         >
       </div>
 
-      <h3>Game Master Name</h3>
+      <h3 class="mt-5">Game Master</h3>
 
       <div class="form-group">
-        <label for="gameMaster">Name Game Master</label>
+        <label for="gameMaster">Nom du game master</label>
         <input type="text" class="form-control" id="gameMaster" name="gameMaster" v-model.number="$v.gameMaster.name.$model"
                :class="{'is-invalid' : $v.gameMaster.name.$error }"
         >
+      </div>
+
+      <div class="form-group">
+        <label for="descriptionMasterGame">Description</label>
+        <textarea class="form-control" id="descriptionMasterGame" v-model="$v.game.descriptionMasterGame.$model" name="description game master"
+         :class="{'is-invalid' : $v.game.descriptionMasterGame.$error }"
+        ></textarea>
       </div>
 
 
@@ -49,9 +49,6 @@
 <script>
 
     import { required } from 'vuelidate/lib/validators'
-    import Vue from 'vue'
-    import VueCookies from 'vue-cookies'
-    Vue.use(VueCookies);
 
     export default {
         name: "GameCreate",
@@ -77,26 +74,28 @@
                 this.$v.$touch()
 
                 if (this.$v.$invalid) {
-                    this.submitStatus = 'ERROR';
+                    this.submitStatus = 'ERROR'
                     return false
                 }
-                // CREATE GAME
-                this.submitStatus = 'PENDING';
+                this.submitStatus = 'PENDING'
                 this.axios.post('http://localhost:8000/api/games', this.game)
                 .then((response) => {
-                    // CREATE GAME MASTER
-                    this.gameMaster.game = response.data['@id'];
-                    this.axios.post('http://localhost:8000/api/players', this.gameMaster)
-                        .then((response) => {
-                            this.$cookies.set('token', response.data.token);
-                        });
-                  this.submitStatus = 'SUCCESS';
-                  this.$router.push({name: 'Home'})
+                  this.gameMaster.game = response.data['@id']
+                  this.createGameMaster()
+                  this.$router.push({name: 'home'})
                 })
                 .catch((error) => {
-                    this.submitStatus = 'ERROR';
+                    this.submitStatus = 'ERROR'
                     console.log(error)
                 })
+            },
+            createGameMaster() {
+                this.axios.post('http://localhost:8000/api/players', this.gameMaster)
+                    .then((response) => {
+                        this.submitStatus = 'SUCCESS';
+                        this.$cookies.set('token', this.gameMaster.game);
+                    })
+                    .catch(error => console.log(error))
             }
         },
 
@@ -116,7 +115,9 @@
                 }
             },
             gameMaster: {
-                name: {}
+                name: {
+                    required
+                }
             }
         }
     }
