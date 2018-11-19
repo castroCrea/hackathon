@@ -1,48 +1,52 @@
 <template>
-  <div>
-    <h2 class="text-center">Créer une partie</h2>
-    <form>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <h2 class="text-center">Créer une partie</h2>
+        <form>
 
-      <div class="form-group">
-        <label for="title">Nom</label>
-        <input type="text" class="form-control" id="title" v-model="$v.game.title.$model" name="title" placeholder="Kayviiiine"
-         :class="{'is-invalid' : $v.game.title.$error }"
-        >
+          <div class="form-group">
+            <label for="title">Nom</label>
+            <input type="text" class="form-control" id="title" v-model="$v.game.title.$model" name="title" placeholder="Kayviiiine"
+                   :class="{'is-invalid' : $v.game.title.$error }"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="description">Description</label>
+            <textarea class="form-control" id="description" v-model="$v.game.description.$model" name="description"
+                      :class="{'is-invalid' : $v.game.description.$error }"
+            ></textarea>
+          </div>
+
+          <div class="form-group">
+            <label for="maxPlayer">Nombre maximum de joueurs</label>
+            <input type="number" class="form-control" id="maxPlayer" name="maxPlayer" v-model.number="$v.game.maxPlayer.$model" placeholder="100"
+                   :class="{'is-invalid' : $v.game.maxPlayer.$error }"
+            >
+          </div>
+
+          <h3 class="mt-5">Game Master</h3>
+
+          <div class="form-group">
+            <label for="gameMaster">Nom du game master</label>
+            <input type="text" class="form-control" id="gameMaster" name="gameMaster" v-model.number="$v.gameMaster.name.$model"
+                   :class="{'is-invalid' : $v.gameMaster.name.$error }"
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="descriptionMasterGame">Description</label>
+            <textarea class="form-control" id="descriptionMasterGame" v-model="$v.game.descriptionMasterGame.$model" name="description game master"
+                      :class="{'is-invalid' : $v.game.descriptionMasterGame.$error }"
+            ></textarea>
+          </div>
+
+
+          <button type="submit" v-on:click.prevent="createGame()" class="btn btn-primary" :disabled="submitStatus === 'PENDING'">Valider</button>
+        </form>
       </div>
-
-      <div class="form-group">
-        <label for="description">Description</label>
-        <textarea class="form-control" id="description" v-model="$v.game.description.$model" name="description"
-         :class="{'is-invalid' : $v.game.description.$error }"
-        ></textarea>
-      </div>
-
-      <div class="form-group">
-        <label for="maxPlayer">Nombre maximum de joueurs</label>
-        <input type="number" class="form-control" id="maxPlayer" name="maxPlayer" v-model.number="$v.game.maxPlayer.$model" placeholder="100"
-         :class="{'is-invalid' : $v.game.maxPlayer.$error }"
-        >
-      </div>
-
-      <h3 class="mt-5">Game Master</h3>
-
-      <div class="form-group">
-        <label for="gameMaster">Nom du game master</label>
-        <input type="text" class="form-control" id="gameMaster" name="gameMaster" v-model.number="$v.gameMaster.name.$model"
-               :class="{'is-invalid' : $v.gameMaster.name.$error }"
-        >
-      </div>
-
-      <div class="form-group">
-        <label for="descriptionMasterGame">Description</label>
-        <textarea class="form-control" id="descriptionMasterGame" v-model="$v.game.descriptionMasterGame.$model" name="description game master"
-         :class="{'is-invalid' : $v.game.descriptionMasterGame.$error }"
-        ></textarea>
-      </div>
-
-
-      <button type="submit" v-on:click.prevent="createGame()" class="btn btn-primary" :disabled="submitStatus === 'PENDING'">Valider</button>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -82,7 +86,7 @@
                 .then((response) => {
                   this.gameMaster.game = response.data['@id']
                   this.createGameMaster()
-                  this.$router.push({name: 'home'})
+                  this.$router.go(-1)
                 })
                 .catch((error) => {
                     this.submitStatus = 'ERROR'

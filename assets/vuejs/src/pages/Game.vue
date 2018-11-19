@@ -9,17 +9,9 @@
     export default {
         name: "Game",
         data(){
-            return {
-            }
+            return {}
         },
-        methods: {
-            createGame(e) {
-                this.axios.post('http://localhost:8000/api/games', this.user)
-                .then((response) => {
-                  this.$router.push({name: 'Home'})
-                })
-            }
-        }
+        methods: {}
     }
 </script>
 

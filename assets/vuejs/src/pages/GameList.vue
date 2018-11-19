@@ -52,7 +52,7 @@ export default {
     }
   },
   created() {
-      this.games = this.getGames()
+      this.getGames()
   },
   methods: {
       getGames(e) {
@@ -61,7 +61,6 @@ export default {
               let results = response.data['hydra:member'].reverse()
               const games = results.map( game => this.addIdFromURI(game) )
               this.games = games
-              return games;
           })
       },
       addIdFromURI(game){
