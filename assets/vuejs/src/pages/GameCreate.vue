@@ -18,6 +18,13 @@
       </div>
 
       <div class="form-group">
+        <label for="descriptionMasterGame">Description Game master</label>
+        <textarea class="form-control" id="descriptionMasterGame" v-model="$v.user.descriptionMasterGame.$model" name="description game master"
+         :class="{'is-invalid' : $v.user.descriptionMasterGame.$error }"
+        ></textarea>
+      </div>
+
+      <div class="form-group">
         <label for="maxPlayer">Nombre maximum de joueurs</label>
         <input type="number" class="form-control" id="maxPlayer" name="maxPlayer" v-model.number="$v.user.maxPlayer.$model" placeholder="100"
          :class="{'is-invalid' : $v.user.maxPlayer.$error }"
@@ -41,6 +48,7 @@
                 user: {
                     title: '',
                     description: '',
+                    descriptionMasterGame: '',
                     maxPlayer: ''
                 },
                 submitStatus: null
@@ -75,6 +83,9 @@
                     required
                 },
                 description: {
+                    required
+                },
+                descriptionMasterGame: {
                     required
                 },
                 maxPlayer: {

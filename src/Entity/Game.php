@@ -39,6 +39,12 @@ use App\Controller\GameStatusController;
  *     },
  *     itemOperations={
  *          "get"={"method"="GET"},
+ *          "get_master"={
+ *               "method"="GET",
+ *              "path"="/games/master/{id}",
+ *              "normalization_context"={"groups"={"get_master_game", "get_list"}},
+ *              "controller"=GameMasterController::class,
+ *          },
  *          "game_status"={
  *              "method"="PUT",
  *              "path"="/games/{status}/{id}",
@@ -49,7 +55,6 @@ use App\Controller\GameStatusController;
  * )
  * )
  */
-//TODO : One request for the master game and on for players with description and descriptionMasterGame
 class Game
 {
     /**
@@ -70,7 +75,7 @@ class Game
     private $description;
 
     /**
-     * @Groups({"post", "get_master"})
+     * @Groups({"post", "get_master_game"})
      * @var string
      */
     private $descriptionMasterGame;
