@@ -51,22 +51,23 @@ export default {
         games: []
     }
   },
-  mounted() {
-      this.getGame()
+  created() {
+      this.getGames()
   },
   methods: {
-      getGame(e) {
+      getGames(e) {
           this.axios.get('http://localhost:8000/api/games')
           .then((response) => {
-              const games = response.data['hydra:member'].reverse()
-              this.games = games.map(game => {
-                  const splitId = game['@id'].split('/');
-                  game.id = splitId[splitId.length - 1]
-                  return game
-              });
-
+              let results = response.data['hydra:member'].reverse()
+              const games = results.map( game => this.addIdFromURI(game) )
+              this.games = games
           })
       },
+      addIdFromURI(game){
+          const splitId = game['@id'].split('/');
+          game.id = splitId[splitId.length - 1]
+          return game
+      }
   }
 }
 
